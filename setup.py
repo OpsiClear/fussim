@@ -81,40 +81,48 @@ def check_cuda_available():
     return False
 
 
-# Auto-detect and set CUDA_HOME if not already set
-_cuda_home = find_cuda_home()
-if _cuda_home:
-    if not os.environ.get("CUDA_HOME"):
-        os.environ["CUDA_HOME"] = _cuda_home
-    if not os.environ.get("CUDA_PATH"):
-        os.environ["CUDA_PATH"] = _cuda_home
+# Check if we're building an sdist (source distribution) - CUDA not required for sdist
+_building_sdist = "sdist" in sys.argv or "egg_info" in sys.argv
 
-if not check_cuda_available():
-    raise RuntimeError(
-        "CUDA is required to build fussim but was not found.\n"
-        "Please ensure:\n"
-        "  1. NVIDIA CUDA Toolkit is installed\n"
-        "  2. nvcc is in your PATH, or\n"
-        "  3. CUDA_HOME environment variable is set\n"
-        "\n"
-        "Install CUDA Toolkit from: https://developer.nvidia.com/cuda-downloads"
-    )
+if not _building_sdist:
+    # Auto-detect and set CUDA_HOME if not already set
+    _cuda_home = find_cuda_home()
+    if _cuda_home:
+        if not os.environ.get("CUDA_HOME"):
+            os.environ["CUDA_HOME"] = _cuda_home
+        if not os.environ.get("CUDA_PATH"):
+            os.environ["CUDA_PATH"] = _cuda_home
 
-import torch.utils.cpp_extension as cpp_ext  # noqa: E402
-from torch.utils.cpp_extension import BuildExtension, CUDAExtension  # noqa: E402
+    if not check_cuda_available():
+        raise RuntimeError(
+            "CUDA is required to build fussim but was not found.\n"
+            "Please ensure:\n"
+            "  1. NVIDIA CUDA Toolkit is installed\n"
+            "  2. nvcc is in your PATH, or\n"
+            "  3. CUDA_HOME environment variable is set\n"
+            "\n"
+            "Install CUDA Toolkit from: https://developer.nvidia.com/cuda-downloads"
+        )
 
-# If torch didn't find CUDA_HOME but we have it, patch the module
-if cpp_ext.CUDA_HOME is None and _cuda_home:
-    cpp_ext.CUDA_HOME = _cuda_home
+    import torch.utils.cpp_extension as cpp_ext  # noqa: E402
+    from torch.utils.cpp_extension import BuildExtension, CUDAExtension  # noqa: E402
 
-# Platform-specific compiler flags
+    # If torch didn't find CUDA_HOME but we have it, patch the module
+    if cpp_ext.CUDA_HOME is None and _cuda_home:
+        cpp_ext.CUDA_HOME = _cuda_home
+else:
+    # For sdist, we don't need CUDA extensions
+    _cuda_home = None
+
+# Platform-specific compiler flags (only needed for wheel builds)
 IS_WINDOWS = sys.platform == "win32"
 
-# C++ compiler flags
-if IS_WINDOWS:
-    cxx_flags = ["/O2", "/std:c++17"]
-else:
-    cxx_flags = ["-O3", "-std=c++17"]
+if not _building_sdist:
+    # C++ compiler flags
+    if IS_WINDOWS:
+        cxx_flags = ["/O2", "/std:c++17"]
+    else:
+        cxx_flags = ["-O3", "-std=c++17"]
 
 
 def get_cuda_arch_flags():
@@ -277,31 +285,34 @@ def get_default_arch_flags():
     return flags
 
 
-# NVCC compiler flags
-nvcc_flags = [
-    "-O3",
-    "--maxrregcount=32",
-    "--use_fast_math",
-    "-std=c++17",
-]
+if not _building_sdist:
+    # NVCC compiler flags
+    nvcc_flags = [
+        "-O3",
+        "--maxrregcount=32",
+        "--use_fast_math",
+        "-std=c++17",
+    ]
 
-# Add architecture flags
-nvcc_flags.extend(get_cuda_arch_flags())
+    # Add architecture flags
+    nvcc_flags.extend(get_cuda_arch_flags())
 
-# Windows-specific NVCC flags
-if IS_WINDOWS:
-    nvcc_flags.extend(
-        [
-            "-Xcompiler",
-            "/wd4819",  # Suppress Unicode warning
-            "-Xcompiler",
-            "/wd4251",  # Suppress DLL interface warning
-        ]
-    )
+    # Windows-specific NVCC flags
+    if IS_WINDOWS:
+        nvcc_flags.extend(
+            [
+                "-Xcompiler",
+                "/wd4819",  # Suppress Unicode warning
+                "-Xcompiler",
+                "/wd4251",  # Suppress DLL interface warning
+            ]
+        )
 
 
 def get_extensions():
     """Build the list of extension modules."""
+    if _building_sdist:
+        return []
     ext_modules = [
         CUDAExtension(
             name="fussim_cuda",
@@ -316,7 +327,11 @@ def get_extensions():
     return ext_modules
 
 
-setup(
-    ext_modules=get_extensions(),
-    cmdclass={"build_ext": BuildExtension.with_options(use_ninja=False)},
-)
+if _building_sdist:
+    # For sdist, no extensions or custom build commands
+    setup()
+else:
+    setup(
+        ext_modules=get_extensions(),
+        cmdclass={"build_ext": BuildExtension.with_options(use_ninja=False)},
+    )
