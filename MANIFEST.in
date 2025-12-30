@@ -7,7 +7,7 @@ include pyproject.toml
 recursive-include csrc *.cu *.cpp *.h
 
 # Python package
-recursive-include fused_ssim *.py
+recursive-include fussim *.py
 
 # Exclude build artifacts
 global-exclude *.pyc

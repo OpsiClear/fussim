@@ -64,18 +64,18 @@ test = [
 ]
 
 [project.scripts]
-fussim-check = "fused_ssim:_cli_check"
+fussim-check = "fussim:_cli_check"
 
 [tool.setuptools]
-packages = ["fused_ssim"]
+packages = ["fussim"]
 include-package-data = true
 
 [tool.setuptools.dynamic]
-version = {attr = "fused_ssim.__version__"}
+version = {attr = "fussim.__version__"}
 
 [tool.setuptools.package-data]
 "*" = ["*.cu", "*.cpp", "*.h"]
-"fused_ssim" = ["py.typed"]
+"fussim" = ["py.typed"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -98,4 +98,4 @@ ignore = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["fused_ssim"]
+known-first-party = ["fussim"]

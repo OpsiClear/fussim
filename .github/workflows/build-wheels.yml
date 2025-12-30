@@ -150,13 +150,13 @@ jobs:
 
       - name: Set version with build metadata
         run: |
-          VERSION=$(python -c "exec(open('fused_ssim/__init__.py').read()); print(__version__)")
+          VERSION=$(python -c "exec(open('fussim/__init__.py').read()); print(__version__)")
           TORCH_TAG=$(echo "pt${{ matrix.torch }}" | sed 's/\.[0-9]*$//' | sed 's/\.//g')
           CUDA_TAG=${{ matrix.cuda }}
           NEW_VERSION="${VERSION}+${TORCH_TAG}${CUDA_TAG}"
           echo "Setting version to: ${NEW_VERSION}"
-          sed -i "s/__version__ = \"${VERSION}\"/__version__ = \"${NEW_VERSION}\"/" fused_ssim/__init__.py
-          cat fused_ssim/__init__.py | grep __version__
+          sed -i "s/__version__ = \"${VERSION}\"/__version__ = \"${NEW_VERSION}\"/" fussim/__init__.py
+          cat fussim/__init__.py | grep __version__
         shell: bash
 
       - name: Build wheel
@@ -170,7 +170,7 @@ jobs:
       - name: Test wheel installation
         run: |
           pip install dist/*.whl
-          python -c "import fused_ssim; print('fused_ssim version:', fused_ssim.__version__)"
+          python -c "import fussim; print('fussim version:', fussim.__version__)"
         shell: bash
 
       - name: Upload wheel

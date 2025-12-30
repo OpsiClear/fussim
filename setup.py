@@ -304,7 +304,7 @@ def get_extensions():
     """Build the list of extension modules."""
     ext_modules = [
         CUDAExtension(
-            name="fused_ssim_cuda",
+            name="fussim_cuda",
             sources=["csrc/ssim.cu", "csrc/ssim_fp16.cu", "csrc/ext.cpp"],
             include_dirs=["csrc"],
             extra_compile_args={

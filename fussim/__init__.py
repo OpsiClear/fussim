@@ -33,7 +33,7 @@ SUPPORTED_WINDOW_SIZES = (7, 9, 11)
 
 def _cli_check():
     """CLI entry point to check installation and compatibility."""
-    print("fused-ssim Installation Check")
+    print("fussim Installation Check")
     print("=" * 50)
 
     info = get_build_info()
@@ -206,9 +206,9 @@ def _ensure_cuda_extension():
         check_compatibility(warn=True)
 
     try:
-        import fused_ssim_cuda
+        import fussim_cuda
 
-        _cuda_extension = fused_ssim_cuda
+        _cuda_extension = fussim_cuda
         return _cuda_extension
     except ImportError as e:
         error_msg = str(e)
@@ -227,30 +227,27 @@ def _ensure_cuda_extension():
         # Provide helpful error messages based on the error type
         if "No module named" in error_msg:
             _import_error = ImportError(
-                "fused_ssim_cuda extension not found.\n\n"
+                "fussim_cuda extension not found.\n\n"
                 f"Environment:\n{context_str}\n\n"
                 "Solutions:\n"
-                "  1. Install a pre-built wheel matching your environment:\n"
-                "     pip install fused-ssim --extra-index-url https://mrnerf.github.io/optimized-fused-ssim/whl/\n"
+                "  1. Reinstall: pip install --force-reinstall fussim\n"
                 "  2. Or build from source (requires CUDA Toolkit):\n"
-                "     pip install fused-ssim --no-binary fused-ssim\n"
+                "     pip install fussim --no-binary fussim\n"
                 f"\nOriginal error: {error_msg}"
             )
         elif "undefined symbol" in error_msg or "cannot open shared object" in error_msg:
             _import_error = ImportError(
-                "fused_ssim_cuda extension failed to load - ABI mismatch detected.\n\n"
+                "fussim_cuda extension failed to load - ABI mismatch detected.\n\n"
                 f"Environment:\n{context_str}\n\n"
                 "This happens when the installed wheel doesn't match your PyTorch/CUDA version.\n\n"
                 "Solutions:\n"
-                "  1. Install the correct wheel for your environment:\n"
-                f"     pip install fused-ssim --extra-index-url https://mrnerf.github.io/optimized-fused-ssim/whl/pt{info['runtime_torch_version'].replace('.', '')[:2]}cu{info['runtime_cuda_version'].replace('.', '') if info['runtime_cuda_version'] else 'XXX'}/\n"
-                "  2. Or rebuild from source:\n"
-                "     pip install --force-reinstall --no-cache-dir --no-binary fused-ssim fused-ssim\n"
+                "  1. Rebuild from source:\n"
+                "     pip install --force-reinstall --no-cache-dir --no-binary fussim fussim\n"
                 f"\nOriginal error: {error_msg}"
             )
         elif "CUDA" in error_msg or "cuda" in error_msg:
             _import_error = ImportError(
-                "CUDA-related error loading fused_ssim_cuda.\n\n"
+                "CUDA-related error loading fussim_cuda.\n\n"
                 f"Environment:\n{context_str}\n\n"
                 "Please check:\n"
                 "  1. NVIDIA drivers are installed and up to date\n"
@@ -259,10 +256,10 @@ def _ensure_cuda_extension():
             )
         else:
             _import_error = ImportError(
-                f"Failed to import fused_ssim_cuda.\n\n"
+                f"Failed to import fussim_cuda.\n\n"
                 f"Environment:\n{context_str}\n\n"
                 f"Original error: {error_msg}\n\n"
-                "Try reinstalling: pip install --force-reinstall fused-ssim"
+                "Try reinstalling: pip install --force-reinstall fussim"
             )
 
         raise _import_error

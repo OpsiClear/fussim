@@ -46,7 +46,7 @@ TORCH_CUDA_ARCH_LIST="8.6" pip install .  # RTX 3090
 
 ```python
 import torch
-from fused_ssim import fused_ssim
+from fussim import fused_ssim
 
 # Create sample images (must be on CUDA)
 img1 = torch.rand(1, 3, 256, 256, device="cuda", requires_grad=True)
@@ -91,7 +91,7 @@ For mixed precision training with `torch.autocast`:
 
 ```python
 import torch
-from fused_ssim import fused_ssim
+from fussim import fused_ssim
 
 # Automatic Mixed Precision (recommended)
 with torch.autocast(device_type="cuda"):
@@ -116,7 +116,7 @@ This package provides a **drop-in replacement** for [pytorch-msssim](https://git
 from pytorch_msssim import ssim, SSIM
 
 # After (fused-ssim) - 6-7x faster!
-from fused_ssim import ssim, SSIM
+from fussim import ssim, SSIM
 ```
 
 **Function API:**
