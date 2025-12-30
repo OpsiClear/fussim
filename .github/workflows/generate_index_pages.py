@@ -6,10 +6,10 @@ This script fetches wheel files from GitHub releases and generates HTML index pa
 that can be served via GitHub Pages for pip installation with --extra-index-url.
 
 Usage:
-    pip install fused-ssim --extra-index-url https://<user>.github.io/<repo>/whl/
+    pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/
 
 Or for a specific PyTorch/CUDA version:
-    pip install fused-ssim --extra-index-url https://<user>.github.io/<repo>/whl/pt25cu124/
+    pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/pt25cu124/
 """
 
 import argparse
@@ -222,7 +222,7 @@ def main():
     if wheels:
         generate_index_html(wheels, repo, args.outdir)
         print("\nInstallation instructions:")
-        print("  pip install fused-ssim --extra-index-url https://<user>.github.io/<repo>/whl/")
+        print("  pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/")
     else:
         print("No wheels found in releases")
 

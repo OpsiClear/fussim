@@ -91,7 +91,7 @@ if _cuda_home:
 
 if not check_cuda_available():
     raise RuntimeError(
-        "CUDA is required to build fused-ssim but was not found.\n"
+        "CUDA is required to build fussim but was not found.\n"
         "Please ensure:\n"
         "  1. NVIDIA CUDA Toolkit is installed\n"
         "  2. nvcc is in your PATH, or\n"
