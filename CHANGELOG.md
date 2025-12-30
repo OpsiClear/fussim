@@ -12,10 +12,6 @@ First release of `fussim`, based on [MrNeRF/optimized-fused-ssim](https://github
 - **Renamed module** from `fused_ssim` to `fussim`
 - **Renamed CUDA extension** from `fused_ssim_cuda` to `fussim_cuda`
 - **Simplified installation**: `pip install fussim`
-- **Cleaner README** with concise documentation
-
-### Features from optimized-fused-ssim (new vs original fused-ssim)
-
 - **FP16/AMP support** for 1.2-1.4x additional speedup
 - **Configurable window sizes**: 7, 9, or 11 (original only supports 11)
 - **pytorch-msssim compatible API**: `ssim()` function and `SSIM` module
@@ -24,7 +20,7 @@ First release of `fussim`, based on [MrNeRF/optimized-fused-ssim](https://github
 - **Blackwell GPU support**: sm_100/sm_120 for B100/B200, RTX 50xx
 - **~7x faster than pytorch-msssim** on RTX 4090
 
-### CUDA Optimizations (from optimized-fused-ssim)
+### SMALL CUDA Optimizations (from optimized-fused-ssim)
 
 - Fast tile path with `fullTileInBounds` (~30-40% speedup)
 - Texture cache reads via `__ldg()` (~10-15% speedup)
