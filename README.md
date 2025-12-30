@@ -23,39 +23,15 @@ Drop-in replacement for [fused-ssim](https://github.com/rahul-goel/fused-ssim) a
 **Prerequisites:** NVIDIA GPU, Python 3.10+, PyTorch 2.5+ with CUDA
 
 ```bash
-# Pre-built wheel (recommended, no compilation)
-pip install fused-ssim --extra-index-url https://mrnerf.github.io/optimized-fused-ssim/whl/
-
-# Or from PyPI (requires CUDA Toolkit)
-pip install fused-ssim
-
-# Verify
-fused-ssim-check
+pip install fussim
 ```
-
-<details>
-<summary><b>Pre-built wheels for specific PyTorch/CUDA versions</b></summary>
-
-| PyTorch | CUDA 11.8 | CUDA 12.4 | CUDA 12.6 | CUDA 12.8 |
-|---------|-----------|-----------|-----------|-----------|
-| 2.9.0   | -         | -         | pt29cu126 | pt29cu128 |
-| 2.8.0   | -         | -         | pt28cu126 | pt28cu128 |
-| 2.7.1   | pt27cu118 | -         | pt27cu126 | pt27cu128 |
-| 2.6.0   | pt26cu118 | pt26cu124 | pt26cu126 | -         |
-| 2.5.1   | pt25cu118 | pt25cu124 | -         | -         |
-
-```bash
-# Install specific version (e.g., PyTorch 2.9 + CUDA 12.8)
-pip install fused-ssim --extra-index-url https://mrnerf.github.io/optimized-fused-ssim/whl/pt29cu128/
-```
-</details>
 
 <details>
 <summary><b>Build from source</b></summary>
 
 ```bash
-git clone https://github.com/MrNeRF/optimized-fused-ssim.git
-cd optimized-fused-ssim
+git clone https://github.com/OpsiClear/fussim.git
+cd fussim
 pip install .  # or pip install -e . for development
 ```
 
@@ -63,28 +39,6 @@ pip install .  # or pip install -e . for development
 ```bash
 TORCH_CUDA_ARCH_LIST="8.9" pip install .  # RTX 4090
 TORCH_CUDA_ARCH_LIST="8.6" pip install .  # RTX 3090
-```
-
-| GPU | Compute Capability |
-|-----|-------------------|
-| RTX 50xx | 12.0 |
-| RTX 40xx | 8.9 |
-| RTX 30xx | 8.6 |
-| RTX 20xx | 7.5 |
-</details>
-
-<details>
-<summary><b>Troubleshooting</b></summary>
-
-**"No kernel image available":** Build from source with your GPU arch:
-```bash
-TORCH_CUDA_ARCH_LIST="8.6" pip install --no-binary fused-ssim fused-ssim
-```
-
-**"undefined symbol" / ABI mismatch:** Reinstall matching your PyTorch version:
-```bash
-python -c "import torch; print(torch.__version__, torch.version.cuda)"
-pip install fused-ssim --force-reinstall --extra-index-url https://mrnerf.github.io/optimized-fused-ssim/whl/
 ```
 </details>
 

@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel", "torch>=2.5", "ninja"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "fused-ssim"
+name = "fussim"
 dynamic = ["version"]
 description = "Optimized CUDA implementation of differentiable SSIM for PyTorch"
 readme = "README.md"
@@ -46,10 +46,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/MrNeRF/optimized-fused-ssim"
-Repository = "https://github.com/MrNeRF/optimized-fused-ssim"
-Issues = "https://github.com/MrNeRF/optimized-fused-ssim/issues"
-Documentation = "https://github.com/MrNeRF/optimized-fused-ssim#readme"
+Homepage = "https://github.com/OpsiClear/fussim"
+Repository = "https://github.com/OpsiClear/fussim"
+Issues = "https://github.com/OpsiClear/fussim/issues"
+Documentation = "https://github.com/OpsiClear/fussim#readme"
 
 [project.optional-dependencies]
 dev = [
@@ -64,7 +64,7 @@ test = [
 ]
 
 [project.scripts]
-fused-ssim-check = "fused_ssim:_cli_check"
+fussim-check = "fused_ssim:_cli_check"
 
 [tool.setuptools]
 packages = ["fused_ssim"]
