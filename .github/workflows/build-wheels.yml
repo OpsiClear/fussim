@@ -148,6 +148,10 @@ jobs:
           TORCH_API void lazy_init_num_threads();' "${Torch_DIR}/include/ATen/Parallel.h"
         shell: bash
 
+      - name: Set up Visual Studio (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
       - name: Set version with build metadata
         run: |
           VERSION=$(python -c "exec(open('fussim/__init__.py').read()); print(__version__)")

@@ -14,8 +14,8 @@ case ${1} in
     export CUDA_HOME=/usr/local/cuda-12.6
     export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
     export PATH=${CUDA_HOME}/bin:${PATH}
-    # CUDA 12.6 supports Blackwell consumer (sm_120, e.g., RTX 5090)
-    export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;12.0"
+    # CUDA 12.6 does NOT support sm_120 (Blackwell) - only CUDA 12.8+ does
+    export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0"
     ;;
   cu124)
     export CUDA_HOME=/usr/local/cuda-12.4
