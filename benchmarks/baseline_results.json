@@ -1,0 +1,173 @@
+{
+  "gpu_info": {
+    "name": "NVIDIA GeForce RTX 4090",
+    "compute_capability": "8.9",
+    "total_memory_gb": 23.98779296875,
+    "sm_count": 128,
+    "cuda_version": "12.8",
+    "pytorch_version": "2.8.0+cu128"
+  },
+  "timestamp": "2025-12-28T12:55:28.886417",
+  "results": [
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.03801247958093881,
+      "forward_std": 0.0034695903106295653,
+      "backward_ms": 0.031102401353418824,
+      "backward_std": 0.004596281845332027,
+      "total_ms": 0.06911488093435764,
+      "throughput_mpix_sec": 11378.620484739307,
+      "memory_mb": 21.0009765625,
+      "timestamp": "2025-12-28T12:55:26.186489"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.03504928084090352,
+      "forward_std": 0.0031145566248467244,
+      "backward_ms": 0.035301439780741926,
+      "backward_std": 0.03817463407772291,
+      "total_ms": 0.07035072062164545,
+      "throughput_mpix_sec": 11178.734106072985,
+      "memory_mb": 24.0009765625,
+      "timestamp": "2025-12-28T12:55:26.371919"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.11015200026333333,
+      "forward_std": 0.0026808995284273553,
+      "backward_ms": 0.11978655867278576,
+      "backward_std": 0.0034339321954893936,
+      "total_ms": 0.2299385589361191,
+      "throughput_mpix_sec": 13680.732864268919,
+      "memory_mb": 84.0009765625,
+      "timestamp": "2025-12-28T12:55:26.573211"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.1099455999583006,
+      "forward_std": 0.005783399001197964,
+      "backward_ms": 0.09433599866926669,
+      "backward_std": 0.007190770591075879,
+      "total_ms": 0.20428159862756728,
+      "throughput_mpix_sec": 15398.978768200672,
+      "memory_mb": 96.0009765625,
+      "timestamp": "2025-12-28T12:55:26.761686"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.28301567733287813,
+      "forward_std": 0.10597017323320336,
+      "backward_ms": 0.2841452771425247,
+      "backward_std": 0.21081863092713587,
+      "total_ms": 0.5671609544754028,
+      "throughput_mpix_sec": 10968.314992265197,
+      "memory_mb": 168.0009765625,
+      "timestamp": "2025-12-28T12:55:27.040493"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.22120928153395653,
+      "forward_std": 0.011428412984083362,
+      "backward_ms": 0.29325503870844843,
+      "backward_std": 0.2320386892296669,
+      "total_ms": 0.514464320242405,
+      "throughput_mpix_sec": 12091.8006462895,
+      "memory_mb": 192.0009765625,
+      "timestamp": "2025-12-28T12:55:27.317497"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.4326956903934478,
+      "forward_std": 0.6178567434117646,
+      "backward_ms": 1.281550406217575,
+      "backward_std": 1.1926226087259373,
+      "total_ms": 2.714246096611023,
+      "throughput_mpix_sec": 9167.62854741465,
+      "memory_mb": 664.4541015625,
+      "timestamp": "2025-12-28T12:55:28.161751"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.2373094481229783,
+      "forward_std": 0.5803964979020916,
+      "backward_ms": 0.9655948716402054,
+      "backward_std": 0.9800461750621599,
+      "total_ms": 2.2029043197631837,
+      "throughput_mpix_sec": 11295.633576439212,
+      "memory_mb": 760.4541015625,
+      "timestamp": "2025-12-28T12:55:28.882286"
+    }
+  ]
+}

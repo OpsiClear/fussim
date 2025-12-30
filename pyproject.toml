@@ -1,0 +1,101 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "torch>=2.5", "ninja"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fused-ssim"
+dynamic = ["version"]
+description = "Optimized CUDA implementation of differentiable SSIM for PyTorch"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    { name = "Janusch Patas" }
+]
+keywords = [
+    "ssim",
+    "structural-similarity",
+    "pytorch",
+    "cuda",
+    "deep-learning",
+    "image-quality",
+    "differentiable",
+    "gaussian-splatting",
+    "3dgs",
+    "nerf",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "Environment :: GPU :: NVIDIA CUDA",
+]
+dependencies = [
+    "torch>=2.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/MrNeRF/optimized-fused-ssim"
+Repository = "https://github.com/MrNeRF/optimized-fused-ssim"
+Issues = "https://github.com/MrNeRF/optimized-fused-ssim/issues"
+Documentation = "https://github.com/MrNeRF/optimized-fused-ssim#readme"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytorch-msssim",
+    "pre-commit>=4.0",
+    "ruff>=0.9",
+]
+test = [
+    "pytest>=7.0",
+    "pytorch-msssim",
+]
+
+[project.scripts]
+fused-ssim-check = "fused_ssim:_cli_check"
+
+[tool.setuptools]
+packages = ["fused_ssim"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = {attr = "fused_ssim.__version__"}
+
+[tool.setuptools.package-data]
+"*" = ["*.cu", "*.cpp", "*.h"]
+"fused_ssim" = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "UP",     # pyupgrade
+]
+ignore = [
+    "E501",   # line too long (handled by formatter)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["fused_ssim"]

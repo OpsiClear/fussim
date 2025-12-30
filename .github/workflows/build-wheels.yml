@@ -1,0 +1,180 @@
+name: Build Wheels
+
+on:
+  workflow_call:
+    inputs:
+      max_jobs:
+        description: 'Parallel compilation jobs (reduce if OOM)'
+        required: false
+        default: '2'
+        type: string
+  workflow_dispatch:
+    inputs:
+      max_jobs:
+        description: 'Parallel compilation jobs (reduce if OOM)'
+        required: false
+        default: '2'
+        type: string
+
+jobs:
+  build_sdist:
+    name: Build source distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install build dependencies
+        run: pip install build
+
+      - name: Build sdist
+        run: python -m build --sdist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist/*.tar.gz
+
+  build_wheels:
+    name: py${{ matrix.python }}-torch${{ matrix.torch }}-${{ matrix.cuda }}-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-2022]
+        python: ['3.10', '3.11', '3.12', '3.13']
+        torch: ['2.5.1', '2.6.0', '2.7.1', '2.8.0', '2.9.0']
+        cuda: ['cu118', 'cu121', 'cu124', 'cu126', 'cu128']
+        exclude:
+          # PyTorch 2.5.x: supports cu118, cu121, cu124
+          - torch: '2.5.1'
+            cuda: 'cu126'
+          - torch: '2.5.1'
+            cuda: 'cu128'
+
+          # PyTorch 2.6.0: supports cu118, cu124, cu126 (dropped cu121)
+          - torch: '2.6.0'
+            cuda: 'cu121'
+          - torch: '2.6.0'
+            cuda: 'cu128'
+
+          # PyTorch 2.7.x: supports cu118, cu126, cu128 (dropped cu121, cu124)
+          - torch: '2.7.1'
+            cuda: 'cu121'
+          - torch: '2.7.1'
+            cuda: 'cu124'
+
+          # PyTorch 2.8.0: supports cu126, cu128 (dropped cu118)
+          - torch: '2.8.0'
+            cuda: 'cu118'
+          - torch: '2.8.0'
+            cuda: 'cu121'
+          - torch: '2.8.0'
+            cuda: 'cu124'
+
+          # PyTorch 2.9.0: supports cu126, cu128 (cu130 available but skip for now)
+          - torch: '2.9.0'
+            cuda: 'cu118'
+          - torch: '2.9.0'
+            cuda: 'cu121'
+          - torch: '2.9.0'
+            cuda: 'cu124'
+
+          # Python 3.12 compatibility
+          - python: '3.12'
+            torch: '2.5.1'
+            cuda: 'cu118'  # Some py3.12 + old CUDA combinations may fail
+
+          # Python 3.13 compatibility (only PyTorch 2.8.0+ supports Python 3.13)
+          - python: '3.13'
+            torch: '2.5.1'
+          - python: '3.13'
+            torch: '2.6.0'
+          - python: '3.13'
+            torch: '2.7.1'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Free up disk space (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          echo "Disk space before cleanup:"
+          df -h
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+          echo "Disk space after cleanup:"
+          df -h
+
+      - name: Install CUDA ${{ matrix.cuda }} (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          bash .github/workflows/cuda/Linux.sh ${{ matrix.cuda }}
+        shell: bash
+
+      - name: Install CUDA ${{ matrix.cuda }} (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          bash .github/workflows/cuda/Windows.sh ${{ matrix.cuda }}
+        shell: bash
+
+      - name: Install PyTorch ${{ matrix.torch }}+${{ matrix.cuda }}
+        run: |
+          pip install torch==${{ matrix.torch }} --index-url https://download.pytorch.org/whl/${{ matrix.cuda }}
+          python -c "import torch; print('PyTorch:', torch.__version__)"
+          python -c "import torch; print('CUDA:', torch.version.cuda)"
+        shell: bash
+
+      - name: Install build dependencies
+        run: |
+          pip install --upgrade pip setuptools wheel ninja
+        shell: bash
+
+      - name: Patch PyTorch static constexpr (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          Torch_DIR=$(python -c 'import os; import torch; print(os.path.dirname(torch.__file__))')
+          sed -i '31,38c\
+          TORCH_API void lazy_init_num_threads();' "${Torch_DIR}/include/ATen/Parallel.h"
+        shell: bash
+
+      - name: Set version with build metadata
+        run: |
+          VERSION=$(python -c "exec(open('fused_ssim/__init__.py').read()); print(__version__)")
+          TORCH_TAG=$(echo "pt${{ matrix.torch }}" | sed 's/\.[0-9]*$//' | sed 's/\.//g')
+          CUDA_TAG=${{ matrix.cuda }}
+          NEW_VERSION="${VERSION}+${TORCH_TAG}${CUDA_TAG}"
+          echo "Setting version to: ${NEW_VERSION}"
+          sed -i "s/__version__ = \"${VERSION}\"/__version__ = \"${NEW_VERSION}\"/" fused_ssim/__init__.py
+          cat fused_ssim/__init__.py | grep __version__
+        shell: bash
+
+      - name: Build wheel
+        run: |
+          source .github/workflows/cuda/${{ runner.os }}-env.sh ${{ matrix.cuda }}
+          MAX_JOBS=${{ inputs.max_jobs || '2' }} python setup.py bdist_wheel --dist-dir=dist
+        shell: bash
+        env:
+          DISTUTILS_USE_SDK: "1"
+
+      - name: Test wheel installation
+        run: |
+          pip install dist/*.whl
+          python -c "import fused_ssim; print('fused_ssim version:', fused_ssim.__version__)"
+        shell: bash
+
+      - name: Upload wheel
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-py${{ matrix.python }}-torch${{ matrix.torch }}-${{ matrix.cuda }}-${{ matrix.os }}
+          path: dist/*.whl

@@ -1,0 +1,17 @@
+include LICENSE
+include README.md
+include setup.py
+include pyproject.toml
+
+# CUDA source files
+recursive-include csrc *.cu *.cpp *.h
+
+# Python package
+recursive-include fused_ssim *.py
+
+# Exclude build artifacts
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude __pycache__
+global-exclude *.so
+global-exclude *.pyd

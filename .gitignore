@@ -1,0 +1,47 @@
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Compiled extensions
+*.so
+*.pyd
+*.dll
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Distribution
+*.whl
+*.tar.gz
+
+# Debug artifacts
+build_output.txt
+build_log.txt
+build_out.txt
+*.log
+
+# Windows reserved names
+nul
+
+# Environment-specific
+.claude/
+uv.lock

@@ -1,0 +1,122 @@
+name: Publish Release
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      skip_pypi:
+        description: 'Skip PyPI upload'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build_wheels:
+    name: Build wheels
+    uses: ./.github/workflows/build-wheels.yml
+
+  upload_github_release:
+    name: Upload to GitHub Release
+    needs: [build_wheels]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all wheel artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wheel-*
+          path: dist
+          merge-multiple: true
+
+      - name: Download sdist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sdist
+          path: dist
+
+      - name: List all packages
+        run: ls -la dist/
+
+      - name: Upload to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Determine the release tag
+          if [ "${{ github.event_name }}" == "release" ]; then
+            TAG="${{ github.event.release.tag_name }}"
+          else
+            # For workflow_dispatch, use the latest release
+            TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName')
+          fi
+          echo "Uploading to release: $TAG"
+
+          # Upload all files using gh CLI (handles URL encoding automatically)
+          gh release upload "$TAG" ./dist/* --clobber --repo ${{ github.repository }}
+          echo "Upload complete!"
+
+  generate_index_pages:
+    name: Generate pip index pages
+    needs: [upload_github_release]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests jinja2
+
+      - name: Generate index pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .github/workflows/generate_index_pages.py --outdir ./whl
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./whl
+          destination_dir: whl
+          keep_files: false
+
+  upload_pypi:
+    name: Upload sdist to PyPI
+    needs: [build_wheels]
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && !inputs.skip_pypi) }}
+    environment:
+      name: pypi
+      url: https://pypi.org/p/fused-ssim
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Download sdist
+        uses: actions/download-artifact@v4
+        with:
+          name: sdist
+          path: dist
+
+      - name: Install twine
+        run: pip install twine
+
+      - name: Upload to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: twine upload dist/*.tar.gz

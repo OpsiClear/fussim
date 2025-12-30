@@ -1,0 +1,3213 @@
+{
+  "gpu_info": {
+    "name": "NVIDIA GeForce RTX 4090",
+    "compute_capability": "8.9",
+    "total_memory_gb": 23.98779296875,
+    "sm_count": 128,
+    "cuda_version": "12.8",
+    "pytorch_version": "2.8.0+cu128"
+  },
+  "timestamp": "2025-12-28T19:09:03.071080",
+  "results": [
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.019396799504756927,
+      "forward_std": 0.0006151888200618983,
+      "backward_ms": 0.009359680749475956,
+      "backward_std": 0.0009569861309994423,
+      "total_ms": 0.028756480254232882,
+      "throughput_mpix_sec": 2278.9993566877247,
+      "memory_mb": 1.7509765625,
+      "timestamp": "2025-12-28T19:07:26.578762"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.014858879894018174,
+      "forward_std": 0.0007112817734529163,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.014858879894018174,
+      "throughput_mpix_sec": 4410.561258145926,
+      "memory_mb": 0.75048828125,
+      "timestamp": "2025-12-28T19:07:26.700342"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.017225920176133513,
+      "forward_std": 0.0007762188004951136,
+      "backward_ms": 0.009300159728154542,
+      "backward_std": 0.0011713619200237912,
+      "total_ms": 0.026526079904288055,
+      "throughput_mpix_sec": 2470.625144630052,
+      "memory_mb": 2.0009765625,
+      "timestamp": "2025-12-28T19:07:27.054440"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.016740800021216272,
+      "forward_std": 0.0011629646041357454,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.016740800021216272,
+      "throughput_mpix_sec": 3914.747199473362,
+      "memory_mb": 1.0,
+      "timestamp": "2025-12-28T19:07:27.167701"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.022608320135623215,
+      "forward_std": 0.0010181785775881895,
+      "backward_ms": 0.014514560829848054,
+      "backward_std": 0.0015758274886189662,
+      "total_ms": 0.03712288096547127,
+      "throughput_mpix_sec": 5296.140678921688,
+      "memory_mb": 5.2509765625,
+      "timestamp": "2025-12-28T19:07:27.491053"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.017301120171323417,
+      "forward_std": 0.0009739912191473766,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.017301120171323417,
+      "throughput_mpix_sec": 11363.888468093384,
+      "memory_mb": 2.25146484375,
+      "timestamp": "2025-12-28T19:07:27.606306"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.020330879744142293,
+      "forward_std": 0.0010130535640214976,
+      "backward_ms": 0.014584000725299119,
+      "backward_std": 0.001536941903869917,
+      "total_ms": 0.03491488046944141,
+      "throughput_mpix_sec": 5631.066105813464,
+      "memory_mb": 6.0009765625,
+      "timestamp": "2025-12-28T19:07:27.925307"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.019583999682217836,
+      "forward_std": 0.0011473860862774479,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.019583999682217836,
+      "throughput_mpix_sec": 10039.21584917707,
+      "memory_mb": 3.0,
+      "timestamp": "2025-12-28T19:07:28.036959"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.019822719618678094,
+      "forward_std": 0.0015910818155461513,
+      "backward_ms": 0.010800640117377042,
+      "backward_std": 0.0017931960479081522,
+      "total_ms": 0.030623359736055136,
+      "throughput_mpix_sec": 4280.131283102791,
+      "memory_mb": 3.5009765625,
+      "timestamp": "2025-12-28T19:07:28.435457"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.016956479884684086,
+      "forward_std": 0.01818686945866284,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.016956479884684086,
+      "throughput_mpix_sec": 7729.906259517376,
+      "memory_mb": 1.50146484375,
+      "timestamp": "2025-12-28T19:07:28.567343"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.0176336002163589,
+      "forward_std": 0.0009223262426697212,
+      "backward_ms": 0.01100640004500747,
+      "backward_std": 0.0015142419381700579,
+      "total_ms": 0.02864000026136637,
+      "throughput_mpix_sec": 4576.5362710840545,
+      "memory_mb": 4.0009765625,
+      "timestamp": "2025-12-28T19:07:28.871131"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.017071680128574372,
+      "forward_std": 0.0011021342403655069,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.017071680128574372,
+      "throughput_mpix_sec": 7677.744604680898,
+      "memory_mb": 2.0,
+      "timestamp": "2025-12-28T19:07:28.992854"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.027917760089039803,
+      "forward_std": 0.0016852324537573822,
+      "backward_ms": 0.02833760026842356,
+      "backward_std": 0.087717937953566,
+      "total_ms": 0.05625536035746336,
+      "throughput_mpix_sec": 6989.840568105655,
+      "memory_mb": 10.5009765625,
+      "timestamp": "2025-12-28T19:07:29.361308"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.02141727987676859,
+      "forward_std": 0.0008790197569017271,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.02141727987676859,
+      "throughput_mpix_sec": 18359.75447220648,
+      "memory_mb": 4.50146484375,
+      "timestamp": "2025-12-28T19:07:29.529947"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.026704319920390844,
+      "forward_std": 0.0016943780627701767,
+      "backward_ms": 0.019538880567997692,
+      "backward_std": 0.002244242962278044,
+      "total_ms": 0.046243200488388536,
+      "throughput_mpix_sec": 8503.217680591437,
+      "memory_mb": 12.0009765625,
+      "timestamp": "2025-12-28T19:07:29.946928"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.0249260800331831,
+      "forward_std": 0.0016823529262996256,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.0249260800331831,
+      "throughput_mpix_sec": 15775.284339797,
+      "memory_mb": 6.0,
+      "timestamp": "2025-12-28T19:07:30.073925"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.024016320388764143,
+      "forward_std": 0.000954807244502297,
+      "backward_ms": 0.019484798964113,
+      "backward_std": 0.041870751066266726,
+      "total_ms": 0.04350111935287714,
+      "throughput_mpix_sec": 6026.143784336022,
+      "memory_mb": 7.0009765625,
+      "timestamp": "2025-12-28T19:07:30.451830"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.018510399982333184,
+      "forward_std": 0.001065406359896227,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.018510399982333184,
+      "throughput_mpix_sec": 14161.984627571373,
+      "memory_mb": 3.00146484375,
+      "timestamp": "2025-12-28T19:07:30.625283"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.02200608003884554,
+      "forward_std": 0.0015987432470023625,
+      "backward_ms": 0.014759360700845717,
+      "backward_std": 0.0024873835773913952,
+      "total_ms": 0.036765440739691256,
+      "throughput_mpix_sec": 7130.174281223683,
+      "memory_mb": 8.0009765625,
+      "timestamp": "2025-12-28T19:07:31.004319"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.020674559976905583,
+      "forward_std": 0.001440139832932178,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.020674559976905583,
+      "throughput_mpix_sec": 12679.544343039304,
+      "memory_mb": 4.0,
+      "timestamp": "2025-12-28T19:07:31.114736"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.039225919283926484,
+      "forward_std": 0.0020831268291081947,
+      "backward_ms": 0.030950082279741768,
+      "backward_std": 0.0029035013672878895,
+      "total_ms": 0.07017600156366825,
+      "throughput_mpix_sec": 11206.566097763458,
+      "memory_mb": 21.0009765625,
+      "timestamp": "2025-12-28T19:07:31.485142"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.030903679747134448,
+      "forward_std": 0.0021702775904823184,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.030903679747134448,
+      "throughput_mpix_sec": 25447.843312993242,
+      "memory_mb": 9.00146484375,
+      "timestamp": "2025-12-28T19:07:31.660660"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.03780000017955899,
+      "forward_std": 0.0026191889559945146,
+      "backward_ms": 0.030898560862988228,
+      "backward_std": 0.0033225229406569122,
+      "total_ms": 0.06869856104254722,
+      "throughput_mpix_sec": 11447.576020012086,
+      "memory_mb": 24.0009765625,
+      "timestamp": "2025-12-28T19:07:32.104375"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.0352956804074347,
+      "forward_std": 0.002974907278346072,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.0352956804074347,
+      "throughput_mpix_sec": 22281.253425967265,
+      "memory_mb": 12.0,
+      "timestamp": "2025-12-28T19:07:32.220645"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.03113055966794491,
+      "forward_std": 0.0012284421426866316,
+      "backward_ms": 0.023317440189421175,
+      "backward_std": 0.0025505970619586382,
+      "total_ms": 0.054447999857366085,
+      "throughput_mpix_sec": 9629.150774563683,
+      "memory_mb": 14.0009765625,
+      "timestamp": "2025-12-28T19:07:32.569283"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.02367968026548624,
+      "forward_std": 0.0013221732511936384,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.02367968026548624,
+      "throughput_mpix_sec": 22140.83949284415,
+      "memory_mb": 6.00146484375,
+      "timestamp": "2025-12-28T19:07:32.677905"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.029771200083196163,
+      "forward_std": 0.0021746834126294768,
+      "backward_ms": 0.023010239563882352,
+      "backward_std": 0.002874107799009682,
+      "total_ms": 0.052781439647078515,
+      "throughput_mpix_sec": 9933.188702423346,
+      "memory_mb": 16.0009765625,
+      "timestamp": "2025-12-28T19:07:33.104910"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.027519040293991565,
+      "forward_std": 0.002264268271327309,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.027519040293991565,
+      "throughput_mpix_sec": 19051.827185792947,
+      "memory_mb": 8.0,
+      "timestamp": "2025-12-28T19:07:33.225915"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.06121664047241211,
+      "forward_std": 0.002662833983595351,
+      "backward_ms": 0.051273280158638954,
+      "backward_std": 0.005310757625910684,
+      "total_ms": 0.11248992063105107,
+      "throughput_mpix_sec": 13982.26606594152,
+      "memory_mb": 42.0009765625,
+      "timestamp": "2025-12-28T19:07:33.625119"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.04609632037580013,
+      "forward_std": 0.001969835957175286,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.04609632037580013,
+      "throughput_mpix_sec": 34121.248446236714,
+      "memory_mb": 18.001953125,
+      "timestamp": "2025-12-28T19:07:33.741250"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.06152896050363779,
+      "forward_std": 0.0039704652385355015,
+      "backward_ms": 0.05312672067433595,
+      "backward_std": 0.015527856850656316,
+      "total_ms": 0.11465568117797374,
+      "throughput_mpix_sec": 13718.151458701197,
+      "memory_mb": 48.0009765625,
+      "timestamp": "2025-12-28T19:07:34.107180"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 256,
+        "width": 256,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.05709920052438974,
+      "forward_std": 0.004972837490621215,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.05709920052438974,
+      "throughput_mpix_sec": 27546.165017287,
+      "memory_mb": 24.0,
+      "timestamp": "2025-12-28T19:07:34.221506"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.023975040335208177,
+      "forward_std": 0.0012825221553096836,
+      "backward_ms": 0.015794878732413052,
+      "backward_std": 0.0018416284086655288,
+      "total_ms": 0.03976991906762123,
+      "throughput_mpix_sec": 6591.514545309325,
+      "memory_mb": 7.0009765625,
+      "timestamp": "2025-12-28T19:07:34.526346"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.01851615997031331,
+      "forward_std": 0.0010791984874768351,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.01851615997031331,
+      "throughput_mpix_sec": 14157.579131973998,
+      "memory_mb": 3.00146484375,
+      "timestamp": "2025-12-28T19:07:34.636933"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.02264672001823783,
+      "forward_std": 0.012814367134265547,
+      "backward_ms": 0.014331840742379427,
+      "backward_std": 0.012890033887965849,
+      "total_ms": 0.03697856076061726,
+      "throughput_mpix_sec": 7089.080662089678,
+      "memory_mb": 8.0009765625,
+      "timestamp": "2025-12-28T19:07:34.955307"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.020626559965312482,
+      "forward_std": 0.0014492020919388933,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.020626559965312482,
+      "throughput_mpix_sec": 12709.0508761929,
+      "memory_mb": 4.0,
+      "timestamp": "2025-12-28T19:07:35.063425"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.03961311932653189,
+      "forward_std": 0.0017619715506035072,
+      "backward_ms": 0.0308937618508935,
+      "backward_std": 0.002630693145324832,
+      "total_ms": 0.07050688117742539,
+      "throughput_mpix_sec": 11153.975142099984,
+      "memory_mb": 21.0009765625,
+      "timestamp": "2025-12-28T19:07:35.389228"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.033452159725129604,
+      "forward_std": 0.02384169054452511,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.033452159725129604,
+      "throughput_mpix_sec": 23509.154758974328,
+      "memory_mb": 9.00146484375,
+      "timestamp": "2025-12-28T19:07:35.538803"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.037767679933458566,
+      "forward_std": 0.0034092995036310646,
+      "backward_ms": 0.031899521257728346,
+      "backward_std": 0.004443816486793196,
+      "total_ms": 0.06966720119118691,
+      "throughput_mpix_sec": 11288.410996184612,
+      "memory_mb": 24.0009765625,
+      "timestamp": "2025-12-28T19:07:35.958314"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.03537824038416147,
+      "forward_std": 0.003198358611528532,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.03537824038416147,
+      "throughput_mpix_sec": 22229.257064805257,
+      "memory_mb": 12.0,
+      "timestamp": "2025-12-28T19:07:36.093127"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.031084159798920156,
+      "forward_std": 0.0014474387092649115,
+      "backward_ms": 0.026225600056350228,
+      "backward_std": 0.032796739487727336,
+      "total_ms": 0.057309759855270384,
+      "throughput_mpix_sec": 9148.319611250034,
+      "memory_mb": 14.0009765625,
+      "timestamp": "2025-12-28T19:07:36.468720"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.0237536002881825,
+      "forward_std": 0.001284181121366969,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.0237536002881825,
+      "throughput_mpix_sec": 22071.93830153129,
+      "memory_mb": 6.00146484375,
+      "timestamp": "2025-12-28T19:07:36.586325"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.029076160173863174,
+      "forward_std": 0.0023663848049799412,
+      "backward_ms": 0.024130239468067884,
+      "backward_std": 0.004227395192843543,
+      "total_ms": 0.05320639964193106,
+      "throughput_mpix_sec": 9853.85223447477,
+      "memory_mb": 16.0009765625,
+      "timestamp": "2025-12-28T19:07:36.945246"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.027766720186918975,
+      "forward_std": 0.0023091997541959844,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.027766720186918975,
+      "throughput_mpix_sec": 18881.884373473622,
+      "memory_mb": 8.0,
+      "timestamp": "2025-12-28T19:07:37.088416"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.06042656049132347,
+      "forward_std": 0.002628849939944923,
+      "backward_ms": 0.06006912022829056,
+      "backward_std": 0.08881568568133098,
+      "total_ms": 0.12049568071961403,
+      "throughput_mpix_sec": 13053.281168309733,
+      "memory_mb": 42.0009765625,
+      "timestamp": "2025-12-28T19:07:37.451281"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.04624512057751417,
+      "forward_std": 0.001806364057012757,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.04624512057751417,
+      "throughput_mpix_sec": 34011.45851406377,
+      "memory_mb": 18.001953125,
+      "timestamp": "2025-12-28T19:07:37.575858"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.060936640314757824,
+      "forward_std": 0.0045108396351144645,
+      "backward_ms": 0.052585280649364,
+      "backward_std": 0.005862482739619793,
+      "total_ms": 0.11352192096412182,
+      "throughput_mpix_sec": 13855.156666148187,
+      "memory_mb": 48.0009765625,
+      "timestamp": "2025-12-28T19:07:37.958864"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.056802240386605266,
+      "forward_std": 0.005618819323687723,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.056802240386605266,
+      "throughput_mpix_sec": 27690.175410244956,
+      "memory_mb": 24.0,
+      "timestamp": "2025-12-28T19:07:38.089097"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.04524736031889916,
+      "forward_std": 0.0021009846899401876,
+      "backward_ms": 0.037824318110942834,
+      "backward_std": 0.0034021180701002546,
+      "total_ms": 0.08307167842984199,
+      "throughput_mpix_sec": 12622.545009555484,
+      "memory_mb": 28.0009765625,
+      "timestamp": "2025-12-28T19:07:38.480478"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.03515360057353974,
+      "forward_std": 0.0018041213113896971,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.03515360057353974,
+      "throughput_mpix_sec": 29828.409690393633,
+      "memory_mb": 12.00146484375,
+      "timestamp": "2025-12-28T19:07:38.624442"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.04535072036087513,
+      "forward_std": 0.003288121975658149,
+      "backward_ms": 0.0380367986112833,
+      "backward_std": 0.004443281110276366,
+      "total_ms": 0.08338751897215843,
+      "throughput_mpix_sec": 12574.735559048117,
+      "memory_mb": 32.0009765625,
+      "timestamp": "2025-12-28T19:07:39.072900"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.04186720009893179,
+      "forward_std": 0.004285174687209291,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.04186720009893179,
+      "throughput_mpix_sec": 25045.28598812973,
+      "memory_mb": 16.0,
+      "timestamp": "2025-12-28T19:07:39.226840"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.11449152059853077,
+      "forward_std": 0.004869142313061691,
+      "backward_ms": 0.1199427194148302,
+      "backward_std": 0.007161300063264745,
+      "total_ms": 0.23443424001336097,
+      "throughput_mpix_sec": 13418.38120498404,
+      "memory_mb": 84.0009765625,
+      "timestamp": "2025-12-28T19:07:39.671546"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.07899615816771983,
+      "forward_std": 0.0019852562464668594,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.07899615816771983,
+      "throughput_mpix_sec": 39821.278312309594,
+      "memory_mb": 36.00244140625,
+      "timestamp": "2025-12-28T19:07:39.808756"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.11076256021857261,
+      "forward_std": 0.005140287165026855,
+      "backward_ms": 0.10373791962862014,
+      "backward_std": 0.05064493885399147,
+      "total_ms": 0.21450047984719275,
+      "throughput_mpix_sec": 14665.365794244257,
+      "memory_mb": 96.0009765625,
+      "timestamp": "2025-12-28T19:07:40.263981"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.10246495880186558,
+      "forward_std": 0.009221229664783382,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.10246495880186558,
+      "throughput_mpix_sec": 30700.52471384711,
+      "memory_mb": 48.0,
+      "timestamp": "2025-12-28T19:07:40.419035"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.07636576071381569,
+      "forward_std": 0.003571626828904123,
+      "backward_ms": 0.06518975958228111,
+      "backward_std": 0.004717374836102522,
+      "total_ms": 0.1415555202960968,
+      "throughput_mpix_sec": 14815.049216118956,
+      "memory_mb": 56.0009765625,
+      "timestamp": "2025-12-28T19:07:40.822694"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.05775520049035549,
+      "forward_std": 0.0021322971112216456,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.05775520049035549,
+      "throughput_mpix_sec": 36311.05047155368,
+      "memory_mb": 24.001953125,
+      "timestamp": "2025-12-28T19:07:40.970582"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.07799808003008366,
+      "forward_std": 0.005490726077196381,
+      "backward_ms": 0.07006784074008465,
+      "backward_std": 0.05007557829340583,
+      "total_ms": 0.1480659207701683,
+      "throughput_mpix_sec": 14163.637311621847,
+      "memory_mb": 64.0009765625,
+      "timestamp": "2025-12-28T19:07:41.363145"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.0710528003424406,
+      "forward_std": 0.006912366859679354,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.0710528003424406,
+      "throughput_mpix_sec": 29515.402487906566,
+      "memory_mb": 32.0,
+      "timestamp": "2025-12-28T19:07:41.527222"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.32251455694437026,
+      "forward_std": 0.11789761392817107,
+      "backward_ms": 0.31282240003347395,
+      "backward_std": 0.27992751291382784,
+      "total_ms": 0.6353369569778442,
+      "throughput_mpix_sec": 9902.55002625229,
+      "memory_mb": 168.0009765625,
+      "timestamp": "2025-12-28T19:07:42.085960"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.14409568056464195,
+      "forward_std": 0.0027309131442052855,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.14409568056464195,
+      "throughput_mpix_sec": 43661.655750864964,
+      "memory_mb": 72.00244140625,
+      "timestamp": "2025-12-28T19:07:42.262373"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.23149120226502418,
+      "forward_std": 0.027923992576764114,
+      "backward_ms": 0.2850489558279514,
+      "backward_std": 0.18176261380446476,
+      "total_ms": 0.5165401580929756,
+      "throughput_mpix_sec": 12179.993949023337,
+      "memory_mb": 192.0009765625,
+      "timestamp": "2025-12-28T19:07:42.846175"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 512,
+        "width": 512,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.1960841603577137,
+      "forward_std": 0.009594194057594109,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.1960841603577137,
+      "throughput_mpix_sec": 32085.488131843907,
+      "memory_mb": 96.0,
+      "timestamp": "2025-12-28T19:07:43.003256"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.04184543944895267,
+      "forward_std": 0.001631159609310536,
+      "backward_ms": 0.033806721344590195,
+      "backward_std": 0.0023064718393513823,
+      "total_ms": 0.07565216079354287,
+      "throughput_mpix_sec": 12182.071078116003,
+      "memory_mb": 24.6103515625,
+      "timestamp": "2025-12-28T19:07:43.334143"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.03227839985862374,
+      "forward_std": 0.001447196380537372,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.03227839985862374,
+      "throughput_mpix_sec": 28551.60119573828,
+      "memory_mb": 10.54833984375,
+      "timestamp": "2025-12-28T19:07:43.450140"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.04112607974559069,
+      "forward_std": 0.0040824867360308974,
+      "backward_ms": 0.03486016135662794,
+      "backward_std": 0.005048477532709282,
+      "total_ms": 0.07598624110221863,
+      "throughput_mpix_sec": 12128.51151250185,
+      "memory_mb": 28.1259765625,
+      "timestamp": "2025-12-28T19:07:43.785910"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.04027359936386347,
+      "forward_std": 0.003104769950374167,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.04027359936386347,
+      "throughput_mpix_sec": 22883.477378655396,
+      "memory_mb": 14.0625,
+      "timestamp": "2025-12-28T19:07:43.947003"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.10130943804979324,
+      "forward_std": 0.004274744217228684,
+      "backward_ms": 0.08783936247229578,
+      "backward_std": 0.005766439925625087,
+      "total_ms": 0.18914880052208902,
+      "throughput_mpix_sec": 14617.063351015666,
+      "memory_mb": 73.8291015625,
+      "timestamp": "2025-12-28T19:07:44.375205"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.07191648177802562,
+      "forward_std": 0.0017510518080385317,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.07191648177802562,
+      "throughput_mpix_sec": 38444.59478056387,
+      "memory_mb": 31.64306640625,
+      "timestamp": "2025-12-28T19:07:44.498872"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.09950272046029568,
+      "forward_std": 0.004265619911979991,
+      "backward_ms": 0.08646367870271204,
+      "backward_std": 0.006642555392439568,
+      "total_ms": 0.18596639916300772,
+      "throughput_mpix_sec": 14867.201884016324,
+      "memory_mb": 84.3759765625,
+      "timestamp": "2025-12-28T19:07:44.911581"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.09304320052266121,
+      "forward_std": 0.007240835999212188,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.09304320052266121,
+      "throughput_mpix_sec": 29715.228887968195,
+      "memory_mb": 42.1875,
+      "timestamp": "2025-12-28T19:07:45.049627"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.06832288101315498,
+      "forward_std": 0.002281621357449357,
+      "backward_ms": 0.058774079233407966,
+      "backward_std": 0.0037006329549946443,
+      "total_ms": 0.12709696024656295,
+      "throughput_mpix_sec": 14502.31379589462,
+      "memory_mb": 49.2197265625,
+      "timestamp": "2025-12-28T19:07:45.396232"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.052108159624040126,
+      "forward_std": 0.0015846027720518559,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.052108159624040126,
+      "throughput_mpix_sec": 35372.57913729194,
+      "memory_mb": 21.095703125,
+      "timestamp": "2025-12-28T19:07:45.505814"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.07016480144113302,
+      "forward_std": 0.0041943408558992095,
+      "backward_ms": 0.05853151876479387,
+      "backward_std": 0.005676387144076354,
+      "total_ms": 0.1286963202059269,
+      "throughput_mpix_sec": 14322.087819222003,
+      "memory_mb": 56.2509765625,
+      "timestamp": "2025-12-28T19:07:45.881408"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.06491616051644086,
+      "forward_std": 0.005724176554434586,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.06491616051644086,
+      "throughput_mpix_sec": 28393.5461576349,
+      "memory_mb": 28.125,
+      "timestamp": "2025-12-28T19:07:45.998751"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.24595456048846245,
+      "forward_std": 0.03758837315357599,
+      "backward_ms": 0.2566134403645992,
+      "backward_std": 0.15908754863473476,
+      "total_ms": 0.5025680008530616,
+      "throughput_mpix_sec": 11002.690164542963,
+      "memory_mb": 154.0009765625,
+      "timestamp": "2025-12-28T19:07:46.463244"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.12885728016495704,
+      "forward_std": 0.0029661145151101344,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.12885728016495704,
+      "throughput_mpix_sec": 42912.592854057344,
+      "memory_mb": 66.00244140625,
+      "timestamp": "2025-12-28T19:07:46.637357"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.1975209602713585,
+      "forward_std": 0.009826977857013225,
+      "backward_ms": 0.21238495886325834,
+      "backward_std": 0.09262979979251948,
+      "total_ms": 0.4099059191346168,
+      "throughput_mpix_sec": 13489.92474095996,
+      "memory_mb": 175.0947265625,
+      "timestamp": "2025-12-28T19:07:47.097355"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.17600992009043692,
+      "forward_std": 0.016487569803824032,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.17600992009043692,
+      "throughput_mpix_sec": 31416.411058869846,
+      "memory_mb": 87.09375,
+      "timestamp": "2025-12-28T19:07:47.239257"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.13561888113617898,
+      "forward_std": 0.007485046558071538,
+      "backward_ms": 0.1689574386179447,
+      "backward_std": 0.1040988388423823,
+      "total_ms": 0.3045763197541237,
+      "throughput_mpix_sec": 12103.370357143758,
+      "memory_mb": 98.4384765625,
+      "timestamp": "2025-12-28T19:07:47.698981"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.09132512085139752,
+      "forward_std": 0.0020557806967233198,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.09132512085139752,
+      "throughput_mpix_sec": 40365.673383541856,
+      "memory_mb": 42.18994140625,
+      "timestamp": "2025-12-28T19:07:47.831511"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.12890943832695484,
+      "forward_std": 0.006091567134408378,
+      "backward_ms": 0.16122944019734858,
+      "backward_std": 0.09958235603818273,
+      "total_ms": 0.2901388785243034,
+      "throughput_mpix_sec": 12705.639515633577,
+      "memory_mb": 112.5009765625,
+      "timestamp": "2025-12-28T19:07:48.257068"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.11833504095673561,
+      "forward_std": 0.009281092713820457,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.11833504095673561,
+      "throughput_mpix_sec": 31152.226510385728,
+      "memory_mb": 56.25,
+      "timestamp": "2025-12-28T19:07:48.411004"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.6206441575288772,
+      "forward_std": 0.24129067476639807,
+      "backward_ms": 0.4801398462057114,
+      "backward_std": 0.46278243865240365,
+      "total_ms": 1.1007840037345886,
+      "throughput_mpix_sec": 10046.657620822856,
+      "memory_mb": 295.3134765625,
+      "timestamp": "2025-12-28T19:07:49.309626"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.27687648236751555,
+      "forward_std": 0.039093712335989204,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.27687648236751555,
+      "throughput_mpix_sec": 39942.72068698283,
+      "memory_mb": 126.56494140625,
+      "timestamp": "2025-12-28T19:07:49.488324"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.44329567909240725,
+      "forward_std": 0.12012339641259698,
+      "backward_ms": 0.4855699241161346,
+      "backward_std": 0.32915389487415775,
+      "total_ms": 0.9288656032085418,
+      "throughput_mpix_sec": 11906.135787350362,
+      "memory_mb": 339.3134765625,
+      "timestamp": "2025-12-28T19:07:50.211257"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.3881955221295357,
+      "forward_std": 0.11836620441089207,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.3881955221295357,
+      "throughput_mpix_sec": 28488.736653458083,
+      "memory_mb": 170.5625,
+      "timestamp": "2025-12-28T19:07:50.434811"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.3599862399697304,
+      "forward_std": 0.10937763059126406,
+      "backward_ms": 0.32593056231737133,
+      "backward_std": 0.23165410171996192,
+      "total_ms": 0.6859168022871017,
+      "throughput_mpix_sec": 10748.825477691087,
+      "memory_mb": 196.8759765625,
+      "timestamp": "2025-12-28T19:07:51.017863"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.17482528120279311,
+      "forward_std": 0.0029287495635219765,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.17482528120279311,
+      "throughput_mpix_sec": 42172.39033894491,
+      "memory_mb": 84.37744140625,
+      "timestamp": "2025-12-28T19:07:51.176125"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.283296639919281,
+      "forward_std": 0.07188146725346285,
+      "backward_ms": 0.30939647376537327,
+      "backward_std": 0.22622016663491676,
+      "total_ms": 0.5926931136846543,
+      "throughput_mpix_sec": 12439.489897503247,
+      "memory_mb": 225.0009765625,
+      "timestamp": "2025-12-28T19:07:51.694912"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.2322291177511215,
+      "forward_std": 0.010721319487225652,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.2322291177511215,
+      "throughput_mpix_sec": 31747.956808333496,
+      "memory_mb": 112.5,
+      "timestamp": "2025-12-28T19:07:51.877653"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.1357356798648834,
+      "forward_std": 0.21804915409388645,
+      "backward_ms": 1.0477088034152984,
+      "backward_std": 0.7261141098242619,
+      "total_ms": 2.183444483280182,
+      "throughput_mpix_sec": 10130.049181177987,
+      "memory_mb": 590.6259765625,
+      "timestamp": "2025-12-28T19:07:53.159466"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.6557203167676926,
+      "forward_std": 0.2090665925907404,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.6557203167676926,
+      "throughput_mpix_sec": 33731.454454591905,
+      "memory_mb": 253.12744140625,
+      "timestamp": "2025-12-28T19:07:53.470347"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.9263910394906998,
+      "forward_std": 0.16428790804310728,
+      "backward_ms": 0.8963792032003401,
+      "backward_std": 0.3846318614941597,
+      "total_ms": 1.82277024269104,
+      "throughput_mpix_sec": 12134.496977164596,
+      "memory_mb": 675.0009765625,
+      "timestamp": "2025-12-28T19:07:54.717906"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 1280,
+        "width": 720,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.8084681564569474,
+      "forward_std": 0.12687208697556504,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.8084681564569474,
+      "throughput_mpix_sec": 27358.40592279141,
+      "memory_mb": 337.5,
+      "timestamp": "2025-12-28T19:07:55.134396"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.07561248049139976,
+      "forward_std": 0.002603303530919684,
+      "backward_ms": 0.10227199882268906,
+      "backward_std": 0.372405139541809,
+      "total_ms": 0.17788447931408882,
+      "throughput_mpix_sec": 11657.003511468054,
+      "memory_mb": 55.3720703125,
+      "timestamp": "2025-12-28T19:07:55.540363"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.05704896051436663,
+      "forward_std": 0.0014272977491438389,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.05704896051436663,
+      "throughput_mpix_sec": 36347.72625660384,
+      "memory_mb": 23.732421875,
+      "timestamp": "2025-12-28T19:07:55.672634"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.07742623999714851,
+      "forward_std": 0.005602391178405989,
+      "backward_ms": 0.0660649597644806,
+      "backward_std": 0.006797268412505324,
+      "total_ms": 0.1434911997616291,
+      "throughput_mpix_sec": 14451.060437467331,
+      "memory_mb": 63.7314453125,
+      "timestamp": "2025-12-28T19:07:56.094480"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.07128832090646028,
+      "forward_std": 0.006397860114548597,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.07128832090646028,
+      "throughput_mpix_sec": 29087.513545463324,
+      "memory_mb": 31.865234375,
+      "timestamp": "2025-12-28T19:07:56.217663"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.28413248181343076,
+      "forward_std": 0.06971000675145134,
+      "backward_ms": 0.2877084732055665,
+      "backward_std": 0.1772406038491911,
+      "total_ms": 0.5718409550189972,
+      "throughput_mpix_sec": 10878.54926339324,
+      "memory_mb": 168.0009765625,
+      "timestamp": "2025-12-28T19:07:56.768831"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.142881920337677,
+      "forward_std": 0.002872316243410177,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.142881920337677,
+      "throughput_mpix_sec": 43538.04865792818,
+      "memory_mb": 72.00244140625,
+      "timestamp": "2025-12-28T19:07:56.934337"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.22972096204757692,
+      "forward_std": 0.05343599221791188,
+      "backward_ms": 0.22983999669551847,
+      "backward_std": 0.10758572454737259,
+      "total_ms": 0.4595609587430954,
+      "throughput_mpix_sec": 13536.397906849967,
+      "memory_mb": 192.0009765625,
+      "timestamp": "2025-12-28T19:07:57.414594"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.19484736010432244,
+      "forward_std": 0.009659661966066779,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.19484736010432244,
+      "throughput_mpix_sec": 31926.529549434727,
+      "memory_mb": 96.0,
+      "timestamp": "2025-12-28T19:07:57.578983"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.15670592099428177,
+      "forward_std": 0.00827001583889874,
+      "backward_ms": 0.1782703974843025,
+      "backward_std": 0.0798966026930119,
+      "total_ms": 0.3349763184785843,
+      "throughput_mpix_sec": 12380.576689229865,
+      "memory_mb": 112.0009765625,
+      "timestamp": "2025-12-28T19:07:58.053831"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.10145983807742595,
+      "forward_std": 0.0021416619270765666,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.10145983807742595,
+      "throughput_mpix_sec": 40875.286996172734,
+      "memory_mb": 48.00244140625,
+      "timestamp": "2025-12-28T19:07:58.187994"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.14675808057188988,
+      "forward_std": 0.007053118906355113,
+      "backward_ms": 0.1725376026332378,
+      "backward_std": 0.10814737000903282,
+      "total_ms": 0.3192956832051277,
+      "throughput_mpix_sec": 12988.587751547147,
+      "memory_mb": 127.8212890625,
+      "timestamp": "2025-12-28T19:07:58.645363"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.133252479955554,
+      "forward_std": 0.010564689804708656,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.133252479955554,
+      "throughput_mpix_sec": 31122.87292051365,
+      "memory_mb": 63.8203125,
+      "timestamp": "2025-12-28T19:07:58.812427"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.6873689645528793,
+      "forward_std": 0.2742293691160575,
+      "backward_ms": 0.54712032020092,
+      "backward_std": 0.4369366523388608,
+      "total_ms": 1.2344892847537994,
+      "throughput_mpix_sec": 10078.337781993218,
+      "memory_mb": 336.0009765625,
+      "timestamp": "2025-12-28T19:07:59.720629"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.3440483182668686,
+      "forward_std": 0.11211942838402772,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.3440483182668686,
+      "throughput_mpix_sec": 36162.36249220495,
+      "memory_mb": 144.00244140625,
+      "timestamp": "2025-12-28T19:07:59.959825"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.546530881524086,
+      "forward_std": 0.20015791631682767,
+      "backward_ms": 0.5462118345499037,
+      "backward_std": 0.4504629948919186,
+      "total_ms": 1.0927427160739898,
+      "throughput_mpix_sec": 11385.662715465383,
+      "memory_mb": 384.0009765625,
+      "timestamp": "2025-12-28T19:08:00.796164"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.45575552016496657,
+      "forward_std": 0.18253439134644805,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.45575552016496657,
+      "throughput_mpix_sec": 27298.846529596838,
+      "memory_mb": 192.0,
+      "timestamp": "2025-12-28T19:08:01.058155"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.4013545614480972,
+      "forward_std": 0.10320929737797033,
+      "backward_ms": 0.41916863858699804,
+      "backward_std": 0.3060897368894113,
+      "total_ms": 0.8205232000350953,
+      "throughput_mpix_sec": 10108.672124865248,
+      "memory_mb": 224.0009765625,
+      "timestamp": "2025-12-28T19:08:01.757489"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.20111775800585746,
+      "forward_std": 0.0031765113097424976,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.20111775800585746,
+      "throughput_mpix_sec": 41241.509860896665,
+      "memory_mb": 96.00244140625,
+      "timestamp": "2025-12-28T19:08:01.938202"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.3538691213726997,
+      "forward_std": 0.13003060449491433,
+      "backward_ms": 0.30561888366937645,
+      "backward_std": 0.24161881968793006,
+      "total_ms": 0.6594880050420762,
+      "throughput_mpix_sec": 12577.029356994606,
+      "memory_mb": 256.0009765625,
+      "timestamp": "2025-12-28T19:08:02.542616"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.2935327997803688,
+      "forward_std": 0.10799740359902701,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.2935327997803688,
+      "throughput_mpix_sec": 28257.14879633946,
+      "memory_mb": 128.0,
+      "timestamp": "2025-12-28T19:08:02.717405"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.3265932822227477,
+      "forward_std": 0.36835763856921516,
+      "backward_ms": 1.0317779183387756,
+      "backward_std": 0.5568834434957307,
+      "total_ms": 2.3583712005615234,
+      "throughput_mpix_sec": 10551.010796805593,
+      "memory_mb": 664.4541015625,
+      "timestamp": "2025-12-28T19:08:04.158342"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.7592448049783707,
+      "forward_std": 0.27025314942374123,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.7592448049783707,
+      "throughput_mpix_sec": 32773.61904466224,
+      "memory_mb": 284.76806640625,
+      "timestamp": "2025-12-28T19:08:04.501387"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.0667651253938675,
+      "forward_std": 0.18114199803699024,
+      "backward_ms": 1.0631206315755843,
+      "backward_std": 0.509767643298288,
+      "total_ms": 2.129885756969452,
+      "throughput_mpix_sec": 11682.880135038571,
+      "memory_mb": 760.4541015625,
+      "timestamp": "2025-12-28T19:08:05.740767"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.0277625679969788,
+      "forward_std": 0.3949439957497784,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 1.0277625679969788,
+      "throughput_mpix_sec": 24211.039373126056,
+      "memory_mb": 380.765625,
+      "timestamp": "2025-12-28T19:08:06.127793"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.8483606380224228,
+      "forward_std": 0.20926667753814998,
+      "backward_ms": 0.7662182432413102,
+      "backward_std": 0.5406901785955927,
+      "total_ms": 1.614578881263733,
+      "throughput_mpix_sec": 10274.38187907916,
+      "memory_mb": 448.0009765625,
+      "timestamp": "2025-12-28T19:08:07.216542"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.47774367839097975,
+      "forward_std": 0.11587754919199723,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.47774367839097975,
+      "throughput_mpix_sec": 34723.22241054108,
+      "memory_mb": 192.00244140625,
+      "timestamp": "2025-12-28T19:08:07.479753"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.6849295967817306,
+      "forward_std": 0.16220186116709942,
+      "backward_ms": 0.6820592159032821,
+      "backward_std": 0.36596444193232824,
+      "total_ms": 1.3669888126850127,
+      "throughput_mpix_sec": 12135.285853156765,
+      "memory_mb": 512.0009765625,
+      "timestamp": "2025-12-28T19:08:08.493033"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.6480921638011933,
+      "forward_std": 0.273966517086299,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.6480921638011933,
+      "throughput_mpix_sec": 25596.35947872489,
+      "memory_mb": 256.0,
+      "timestamp": "2025-12-28T19:08:08.801060"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 2.618216321468353,
+      "forward_std": 0.6574990424708694,
+      "backward_ms": 2.357359006404877,
+      "backward_std": 1.1947311453589358,
+      "total_ms": 4.97557532787323,
+      "throughput_mpix_sec": 10002.139797021675,
+      "memory_mb": 1330.0009765625,
+      "timestamp": "2025-12-28T19:08:11.015083"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.6198502385616302,
+      "forward_std": 0.6604711726392853,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 1.6198502385616302,
+      "throughput_mpix_sec": 30722.84018317076,
+      "memory_mb": 570.00244140625,
+      "timestamp": "2025-12-28T19:08:11.639770"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 2.220821429491043,
+      "forward_std": 0.5031340305394544,
+      "backward_ms": 2.15608610033989,
+      "backward_std": 1.1369683634877434,
+      "total_ms": 4.376907529830933,
+      "throughput_mpix_sec": 11370.219649562103,
+      "memory_mb": 1519.8447265625,
+      "timestamp": "2025-12-28T19:08:13.608213"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 1920,
+        "width": 1080,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.934085762500763,
+      "forward_std": 0.4338415094639421,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 1.934085762500763,
+      "throughput_mpix_sec": 25731.227107350347,
+      "memory_mb": 759.84375,
+      "timestamp": "2025-12-28T19:08:14.313290"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.41788544148206713,
+      "forward_std": 0.11606317916334248,
+      "backward_ms": 0.3967580798268318,
+      "backward_std": 0.29751925599083506,
+      "total_ms": 0.8146435213088989,
+      "throughput_mpix_sec": 10181.631330809914,
+      "memory_mb": 224.0009765625,
+      "timestamp": "2025-12-28T19:08:15.047649"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.20078015819191933,
+      "forward_std": 0.00399659456745348,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.20078015819191933,
+      "throughput_mpix_sec": 41310.85499032055,
+      "memory_mb": 96.00244140625,
+      "timestamp": "2025-12-28T19:08:15.239727"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.3296345615386963,
+      "forward_std": 0.09182704178346413,
+      "backward_ms": 0.3211174464225769,
+      "backward_std": 0.18648556148255033,
+      "total_ms": 0.6507520079612732,
+      "throughput_mpix_sec": 12745.869238245372,
+      "memory_mb": 256.0009765625,
+      "timestamp": "2025-12-28T19:08:15.870005"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.29167167901992797,
+      "forward_std": 0.1602979554581303,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.29167167901992797,
+      "throughput_mpix_sec": 28437.45415348776,
+      "memory_mb": 128.0,
+      "timestamp": "2025-12-28T19:08:16.076955"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.3151167988777162,
+      "forward_std": 0.3369812079278178,
+      "backward_ms": 1.176829116344452,
+      "backward_std": 0.8657338714368846,
+      "total_ms": 2.491945915222168,
+      "throughput_mpix_sec": 9985.449462606635,
+      "memory_mb": 664.4541015625,
+      "timestamp": "2025-12-28T19:08:17.495819"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.8003126388788223,
+      "forward_std": 0.38495684900704014,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.8003126388788223,
+      "throughput_mpix_sec": 31091.849348848828,
+      "memory_mb": 284.76806640625,
+      "timestamp": "2025-12-28T19:08:17.892689"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.1852047973871231,
+      "forward_std": 0.41682632645531176,
+      "backward_ms": 1.0145376056432722,
+      "backward_std": 0.8350635639997815,
+      "total_ms": 2.1997424030303954,
+      "throughput_mpix_sec": 11311.869956100569,
+      "memory_mb": 760.4541015625,
+      "timestamp": "2025-12-28T19:08:19.174211"
+    },
+    {
+      "config": {
+        "batch_size": 1,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.9743785643577576,
+      "forward_std": 0.3195982744115633,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.9743785643577576,
+      "throughput_mpix_sec": 25537.507607632222,
+      "memory_mb": 380.765625,
+      "timestamp": "2025-12-28T19:08:19.591665"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.9084620767831803,
+      "forward_std": 0.2916265528706075,
+      "backward_ms": 0.7251923328638076,
+      "backward_std": 0.6117315185741686,
+      "total_ms": 1.6336544096469878,
+      "throughput_mpix_sec": 10154.412036009888,
+      "memory_mb": 448.0009765625,
+      "timestamp": "2025-12-28T19:08:20.726772"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.49533663868904115,
+      "forward_std": 0.17725923349039477,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.49533663868904115,
+      "throughput_mpix_sec": 33489.95148815146,
+      "memory_mb": 192.00244140625,
+      "timestamp": "2025-12-28T19:08:21.017174"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.6900038391351699,
+      "forward_std": 0.1971424485164068,
+      "backward_ms": 0.6531612664461137,
+      "backward_std": 0.3714740782411408,
+      "total_ms": 1.3431651055812837,
+      "throughput_mpix_sec": 12350.529306537366,
+      "memory_mb": 512.0009765625,
+      "timestamp": "2025-12-28T19:08:21.891014"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 0.6441331189870835,
+      "forward_std": 0.3368708711076625,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 0.6441331189870835,
+      "throughput_mpix_sec": 25753.682757511877,
+      "memory_mb": 256.0,
+      "timestamp": "2025-12-28T19:08:22.261395"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 2.682930233478546,
+      "forward_std": 0.7322041864704361,
+      "backward_ms": 2.1582099032402042,
+      "backward_std": 1.016626553679063,
+      "total_ms": 4.84114013671875,
+      "throughput_mpix_sec": 10279.892462218806,
+      "memory_mb": 1330.0009765625,
+      "timestamp": "2025-12-28T19:08:24.473368"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.4836908733844758,
+      "forward_std": 0.4576229302884735,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 1.4836908733844758,
+      "throughput_mpix_sec": 33542.29704633614,
+      "memory_mb": 570.00244140625,
+      "timestamp": "2025-12-28T19:08:25.055429"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 2.233480647802353,
+      "forward_std": 0.49863574965931623,
+      "backward_ms": 2.149970232248306,
+      "backward_std": 2.05635573288164,
+      "total_ms": 4.383450880050659,
+      "throughput_mpix_sec": 11353.246873710801,
+      "memory_mb": 1519.8447265625,
+      "timestamp": "2025-12-28T19:08:27.004205"
+    },
+    {
+      "config": {
+        "batch_size": 2,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.9475024020671845,
+      "forward_std": 0.47854448723904136,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 1.9475024020671845,
+      "throughput_mpix_sec": 25553.96077929108,
+      "memory_mb": 759.84375,
+      "timestamp": "2025-12-28T19:08:27.696639"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.7357772743701936,
+      "forward_std": 0.3558572061400727,
+      "backward_ms": 1.5566896283626555,
+      "backward_std": 0.9108920170018425,
+      "total_ms": 3.292466902732849,
+      "throughput_mpix_sec": 10076.821113208935,
+      "memory_mb": 885.9384765625,
+      "timestamp": "2025-12-28T19:08:29.469271"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.0337782406806946,
+      "forward_std": 0.36123726733187306,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 1.0337782406806946,
+      "throughput_mpix_sec": 32093.53679001224,
+      "memory_mb": 379.68994140625,
+      "timestamp": "2025-12-28T19:08:29.920238"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.5328687942028045,
+      "forward_std": 0.4704741913041316,
+      "backward_ms": 1.2774108874797823,
+      "backward_std": 0.682710330693855,
+      "total_ms": 2.810279681682587,
+      "throughput_mpix_sec": 11805.800047679139,
+      "memory_mb": 1013.9384765625,
+      "timestamp": "2025-12-28T19:08:31.471200"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 1.3068899178504945,
+      "forward_std": 0.29455247029257786,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 1.3068899178504945,
+      "throughput_mpix_sec": 25386.682953809002,
+      "memory_mb": 507.6875,
+      "timestamp": "2025-12-28T19:08:32.007170"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 5.193254089355468,
+      "forward_std": 0.8310665287867168,
+      "backward_ms": 4.609790077209473,
+      "backward_std": 3.1169457922258457,
+      "total_ms": 9.803044166564941,
+      "throughput_mpix_sec": 10153.25426559585,
+      "memory_mb": 2660.0009765625,
+      "timestamp": "2025-12-28T19:08:35.503605"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 3.0947881603240965,
+      "forward_std": 0.9904869401026108,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 3.0947881603240965,
+      "throughput_mpix_sec": 32161.425869477473,
+      "memory_mb": 1140.00390625,
+      "timestamp": "2025-12-28T19:08:36.480994"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 4.36908255815506,
+      "forward_std": 0.6330265395114608,
+      "backward_ms": 4.262452166080474,
+      "backward_std": 2.190588867498443,
+      "total_ms": 8.631534724235534,
+      "throughput_mpix_sec": 11531.298103978292,
+      "memory_mb": 3040.0009765625,
+      "timestamp": "2025-12-28T19:08:39.646416"
+    },
+    {
+      "config": {
+        "batch_size": 4,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 3.9376054310798647,
+      "forward_std": 0.9019442989873953,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 3.9376054310798647,
+      "throughput_mpix_sec": 25277.494594653614,
+      "memory_mb": 1520.0,
+      "timestamp": "2025-12-28T19:08:40.750323"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 3.5492595338821413,
+      "forward_std": 0.5367406042221996,
+      "backward_ms": 3.1313590431213374,
+      "backward_std": 1.2092083649516114,
+      "total_ms": 6.680618577003479,
+      "throughput_mpix_sec": 9932.493411375526,
+      "memory_mb": 1778.0009765625,
+      "timestamp": "2025-12-28T19:08:42.989713"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 2.0816732811927796,
+      "forward_std": 0.595413055305147,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 2.0816732811927796,
+      "throughput_mpix_sec": 31875.8955113163,
+      "memory_mb": 762.0029296875,
+      "timestamp": "2025-12-28T19:08:43.674491"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 2.9444108819961547,
+      "forward_std": 0.5316664828911856,
+      "backward_ms": 2.934319009780884,
+      "backward_std": 1.164302475192772,
+      "total_ms": 5.878729891777039,
+      "throughput_mpix_sec": 11287.33607795373,
+      "memory_mb": 2031.1259765625,
+      "timestamp": "2025-12-28T19:08:46.194110"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 1,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 2.5332467126846314,
+      "forward_std": 0.3734453895617817,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 2.5332467126846314,
+      "throughput_mpix_sec": 26193.737731008234,
+      "memory_mb": 1015.125,
+      "timestamp": "2025-12-28T19:08:47.010581"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 11.469429407119751,
+      "forward_std": 3.801427609166722,
+      "backward_ms": 16.944345712661743,
+      "backward_std": 9.830307504353044,
+      "total_ms": 28.413775119781494,
+      "throughput_mpix_sec": 7005.953948773662,
+      "memory_mb": 5320.0009765625,
+      "timestamp": "2025-12-28T19:08:53.594984"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp32_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 5.892569289207459,
+      "forward_std": 0.883172057352356,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 5.892569289207459,
+      "throughput_mpix_sec": 33782.47929381141,
+      "memory_mb": 2280.0068359375,
+      "timestamp": "2025-12-28T19:08:55.210034"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_train",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 9.073452758789063,
+      "forward_std": 2.5213428429509914,
+      "backward_ms": 17.747751693725586,
+      "backward_std": 8.323552670323327,
+      "total_ms": 26.82120445251465,
+      "throughput_mpix_sec": 7421.948568806215,
+      "memory_mb": 6080.0009765625,
+      "timestamp": "2025-12-28T19:09:01.163507"
+    },
+    {
+      "config": {
+        "batch_size": 8,
+        "channels": 3,
+        "height": 3840,
+        "width": 2160,
+        "mode": "fp16_infer",
+        "padding": "same",
+        "iterations": 100,
+        "warmup": 20
+      },
+      "forward_ms": 8.137187223434449,
+      "forward_std": 2.491127465760083,
+      "backward_ms": 0.0,
+      "backward_std": 0.0,
+      "total_ms": 8.137187223434449,
+      "throughput_mpix_sec": 24463.686840915616,
+      "memory_mb": 3040.0,
+      "timestamp": "2025-12-28T19:09:03.029992"
+    }
+  ]
+}
