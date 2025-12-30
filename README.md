@@ -212,19 +212,21 @@ These limitations cover 99%+ of use cases since the standard SSIM uses an 11×11
 - **16×16 blocks**: Better GPU occupancy than 32×32
 </details>
 
-## Acknowledgments
+## Attribution
 
-Special thanks to [Florian Hahlbohm](https://github.com/fhahlbohm) for helping verify that optimizations don't break correctness.
+This project is built upon the work of:
 
-## Radiance Fields Dev Discord
-[![](https://dcbadge.limes.pink/api/server/https://discord.gg/TbxJST2BbC)](https://discord.gg/TbxJST2BbC)
+| Project | Author | Contribution |
+|---------|--------|--------------|
+| [optimized-fused-ssim](https://github.com/MrNeRF/optimized-fused-ssim) | [Janusch Patas](https://github.com/MrNeRF) | CUDA optimizations, FP16 support, pytorch-msssim API |
+| [fused-ssim](https://github.com/rahul-goel/fused-ssim) | [Rahul Goel](https://github.com/rahul-goel) | Original fused CUDA implementation |
+
+Special thanks to [Florian Hahlbohm](https://github.com/fhahlbohm) for helping verify correctness.
 
 ## Citation
 
-If you use this optimized fused-SSIM implementation for your research, please cite both the original paper and this implementation:
-
 ```bibtex
-@inproceedings{optimized-fused-ssim,
+@software{fussim,
     author = {Janusch Patas},
     title = {Optimized Fused-SSIM},
     year = {2025},
@@ -234,9 +236,7 @@ If you use this optimized fused-SSIM implementation for your research, please ci
     author = {Mallick, Saswat Subhajyoti and Goel, Rahul and Kerbl, Bernhard and Steinberger, Markus and Carrasco, Francisco Vicente and De La Torre, Fernando},
     title = {Taming 3DGS: High-Quality Radiance Fields with Limited Resources},
     year = {2024},
-    url = {https://doi.org/10.1145/3680528.3687694},
     doi = {10.1145/3680528.3687694},
     booktitle = {SIGGRAPH Asia 2024 Conference Papers},
-    series = {SA '24}
 }
 ```
