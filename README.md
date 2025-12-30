@@ -1,8 +1,10 @@
 # Optimized Fully Fused Differentiable SSIM
 
-An enhanced fork of [fused-ssim](https://github.com/rahul-goel/fused-ssim) with additional features: **FP16/AMP support**, **configurable window sizes** (7, 9, 11), **pre-built wheels**, and **pytorch-msssim compatibility**.
+> **Based on [MrNeRF/optimized-fused-ssim](https://github.com/MrNeRF/optimized-fused-ssim)** by Janusch Patas, which optimizes [rahul-goel/fused-ssim](https://github.com/rahul-goel/fused-ssim).
 
-This is a **drop-in replacement** for both [fused-ssim](https://github.com/rahul-goel/fused-ssim) and [pytorch-msssim](https://github.com/VainF/pytorch-msssim).
+A fast CUDA implementation of differentiable SSIM for PyTorch with **FP16/AMP support**, **configurable window sizes** (7, 9, 11), and **pytorch-msssim compatibility**.
+
+Drop-in replacement for [fused-ssim](https://github.com/rahul-goel/fused-ssim) and [pytorch-msssim](https://github.com/VainF/pytorch-msssim).
 
 ## Performance (RTX 4090)
 
@@ -18,197 +20,73 @@ This is a **drop-in replacement** for both [fused-ssim](https://github.com/rahul
 
 ## Installation
 
-### Prerequisites
+**Prerequisites:** NVIDIA GPU, Python 3.10+, PyTorch 2.5+ with CUDA
 
-- NVIDIA GPU with CUDA support
-- Python 3.10+
-- PyTorch 2.5+ with CUDA support
-
-### Quick Install (One-Liner)
-
-**Pre-built wheel (no compilation needed):**
 ```bash
+# Pre-built wheel (recommended, no compilation)
 pip install fused-ssim --extra-index-url https://mrnerf.github.io/optimized-fused-ssim/whl/
-```
 
-**From PyPI (requires CUDA Toolkit for compilation):**
-```bash
+# Or from PyPI (requires CUDA Toolkit)
 pip install fused-ssim
+
+# Verify
+fused-ssim-check
 ```
 
-**From GitHub (requires CUDA Toolkit):**
+<details>
+<summary><b>Pre-built wheels for specific PyTorch/CUDA versions</b></summary>
+
+| PyTorch | CUDA 11.8 | CUDA 12.4 | CUDA 12.6 | CUDA 12.8 |
+|---------|-----------|-----------|-----------|-----------|
+| 2.9.0   | -         | -         | pt29cu126 | pt29cu128 |
+| 2.8.0   | -         | -         | pt28cu126 | pt28cu128 |
+| 2.7.1   | pt27cu118 | -         | pt27cu126 | pt27cu128 |
+| 2.6.0   | pt26cu118 | pt26cu124 | pt26cu126 | -         |
+| 2.5.1   | pt25cu118 | pt25cu124 | -         | -         |
+
 ```bash
-pip install git+https://github.com/MrNeRF/optimized-fused-ssim.git
-```
-
-### Pre-built Wheels
-
-Pre-built wheels are available for common PyTorch and CUDA combinations:
-
-| PyTorch | CUDA 11.8 | CUDA 12.1 | CUDA 12.4 | CUDA 12.6 | CUDA 12.8 |
-|---------|-----------|-----------|-----------|-----------|-----------|
-| 2.9.0   | -         | -         | -         | pt29cu126 | pt29cu128 |
-| 2.8.0   | -         | -         | -         | pt28cu126 | pt28cu128 |
-| 2.7.1   | pt27cu118 | -         | -         | pt27cu126 | pt27cu128 |
-| 2.6.0   | pt26cu118 | -         | pt26cu124 | pt26cu126 | -         |
-| 2.5.1   | pt25cu118 | pt25cu121 | pt25cu124 | -         | -         |
-
-To install a specific variant:
-```bash
-# Example: PyTorch 2.9 + CUDA 12.8
+# Install specific version (e.g., PyTorch 2.9 + CUDA 12.8)
 pip install fused-ssim --extra-index-url https://mrnerf.github.io/optimized-fused-ssim/whl/pt29cu128/
 ```
+</details>
 
-### Automatic Installation (Recommended)
-
-Use the installation helper script that auto-detects your environment:
-
-```bash
-# Download and run the installer
-curl -sSL https://raw.githubusercontent.com/MrNeRF/optimized-fused-ssim/main/scripts/install.py | python
-
-# Or clone and run locally
-git clone https://github.com/MrNeRF/optimized-fused-ssim.git
-cd optimized-fused-ssim
-python scripts/install.py
-```
-
-Options:
-```bash
-python scripts/install.py --check   # Check environment without installing
-python scripts/install.py --source  # Force build from source
-```
-
-### Install from PyPI (Source Build)
-
-```bash
-pip install fused-ssim
-```
-
-This requires CUDA Toolkit to be installed for compilation.
-
-### Install from Source
+<details>
+<summary><b>Build from source</b></summary>
 
 ```bash
 git clone https://github.com/MrNeRF/optimized-fused-ssim.git
 cd optimized-fused-ssim
-pip install .
+pip install .  # or pip install -e . for development
 ```
 
-For development:
+**GPU architecture override:**
 ```bash
-pip install -e .
+TORCH_CUDA_ARCH_LIST="8.9" pip install .  # RTX 4090
+TORCH_CUDA_ARCH_LIST="8.6" pip install .  # RTX 3090
 ```
 
-### Verify Installation
+| GPU | Compute Capability |
+|-----|-------------------|
+| RTX 50xx | 12.0 |
+| RTX 40xx | 8.9 |
+| RTX 30xx | 8.6 |
+| RTX 20xx | 7.5 |
+</details>
 
-After installation, verify it works:
+<details>
+<summary><b>Troubleshooting</b></summary>
 
+**"No kernel image available":** Build from source with your GPU arch:
 ```bash
-# CLI check
-fused-ssim-check
-
-# Or in Python
-python -c "from fused_ssim import get_build_info; print(get_build_info())"
+TORCH_CUDA_ARCH_LIST="8.6" pip install --no-binary fused-ssim fused-ssim
 ```
 
-### GPU Architecture
-
-The build system automatically detects your GPU architecture. If auto-detection fails or you want to target specific architectures, use the `TORCH_CUDA_ARCH_LIST` environment variable:
-
+**"undefined symbol" / ABI mismatch:** Reinstall matching your PyTorch version:
 ```bash
-# For RTX 4090 (Ada Lovelace)
-TORCH_CUDA_ARCH_LIST="8.9" pip install .
-
-# For RTX 3090 (Ampere)
-TORCH_CUDA_ARCH_LIST="8.6" pip install .
-
-# For multiple architectures
-TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9" pip install .
-
-# With PTX for forward compatibility
-TORCH_CUDA_ARCH_LIST="8.0+PTX" pip install .
+python -c "import torch; print(torch.__version__, torch.version.cuda)"
+pip install fused-ssim --force-reinstall --extra-index-url https://mrnerf.github.io/optimized-fused-ssim/whl/
 ```
-
-#### Common GPU Architectures
-
-| GPU Series | Architecture | Compute Capability | Min CUDA Version |
-|------------|--------------|-------------------|------------------|
-| RTX 50xx (5090, 5080, etc.) | Blackwell | 12.0 | CUDA 12.9+ |
-| B100, B200 | Blackwell | 10.0 | CUDA 12.8+ |
-| RTX 40xx (4090, 4080, etc.) | Ada Lovelace | 8.9 | CUDA 11.8+ |
-| H100, H200 | Hopper | 9.0 | CUDA 12.0+ |
-| RTX 30xx (3090, 3080, etc.) | Ampere | 8.6 | CUDA 11.1+ |
-| A100, A30 | Ampere | 8.0 | CUDA 11.0+ |
-| RTX 20xx, Quadro RTX | Turing | 7.5 | CUDA 10.0+ |
-| V100 | Volta | 7.0 | CUDA 9.0+ |
-
-### Platform-Specific Notes
-
-#### Linux
-
-Standard installation should work. Ensure CUDA Toolkit is installed and `nvcc` is in your PATH:
-
-```bash
-nvcc --version  # Should show CUDA version
-```
-
-#### Windows
-
-1. Install [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/) with C++ development tools
-2. Install CUDA Toolkit
-3. Open "x64 Native Tools Command Prompt" or ensure MSVC is in PATH
-4. Install the package:
-
-```cmd
-pip install .
-```
-
-#### Troubleshooting
-
-**Check your installation:**
-```bash
-fused-ssim-check
-# Or: python -c "from fused_ssim import get_build_info, check_compatibility; print(get_build_info()); check_compatibility()"
-```
-
-**"CUDA not found" error:**
-```bash
-# Set CUDA path explicitly
-export CUDA_HOME=/usr/local/cuda  # Linux
-set CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1  # Windows
-```
-
-**"No kernel image available" error:**
-The pre-built wheel doesn't include your GPU architecture. Options:
-```bash
-# Option 1: Build from source with your GPU arch
-TORCH_CUDA_ARCH_LIST="8.6" pip install --force-reinstall --no-cache-dir --no-binary fused-ssim fused-ssim
-
-# Option 2: Use the installer script
-python scripts/install.py --source
-```
-
-**"undefined symbol" or ABI mismatch error:**
-The installed wheel was built for a different PyTorch version. Fix:
-```bash
-# Check your environment
-python -c "import torch; print(f'PyTorch {torch.__version__}, CUDA {torch.version.cuda}')"
-
-# Reinstall matching wheel (example for PyTorch 2.9 + CUDA 12.8)
-pip install fused-ssim --force-reinstall --extra-index-url https://mrnerf.github.io/optimized-fused-ssim/whl/pt29cu128/
-
-# Or build from source
-pip install --force-reinstall --no-cache-dir --no-binary fused-ssim fused-ssim
-```
-
-**Version mismatch warning at runtime:**
-If you see warnings about PyTorch/CUDA version mismatch, the package may still work but could have issues. Reinstall with the correct wheel or build from source.
-
-**PyTorch updated after installing fused-ssim:**
-```bash
-pip install --force-reinstall fused-ssim
-```
+</details>
 
 ## Usage
 
@@ -289,17 +167,17 @@ from fused_ssim import ssim, SSIM
 
 **Function API:**
 ```python
-ssim(X, Y, data_range=255, size_average=True, nonnegative_ssim=False)
+ssim(X, Y, data_range=255, size_average=True, win_size=11, K=(0.01, 0.03), nonnegative_ssim=False)
 ```
 
 **Module API:**
 ```python
-ssim_module = SSIM(data_range=1.0, size_average=True, channel=3)
+ssim_module = SSIM(data_range=1.0, size_average=True, win_size=11, K=(0.01, 0.03))
 loss = 1 - ssim_module(pred, target)
 loss.backward()
 ```
 
-Both APIs produce identical results to pytorch-msssim. The CUDA kernel uses the standard SSIM parameters (11×11 Gaussian, σ=1.5, K₁=0.01, K₂=0.03).
+Both use standard SSIM parameters (σ=1.5 fixed). Only `X` receives gradients.
 
 ## API Compatibility
 
@@ -361,64 +239,24 @@ These limitations cover 99%+ of use cases since the standard SSIM uses an 11×11
 | | `get_build_info()` | Query build configuration |
 | | Input validation | Helpful error messages |
 
-## CUDA Optimizations
+<details>
+<summary><h2>CUDA Optimizations</h2></summary>
 
-### Summary
+| Optimization | Est. Contribution |
+|-------------|-------------------|
+| Fast tile path (`fullTileInBounds`) | ~30-40% |
+| Texture cache (`__ldg`) | ~10-15% |
+| Interleaved shared memory | ~10% |
+| Fused computations | ~10% |
+| FP16 kernels | ~20-40% additional |
 
-| Optimization | Category | Est. Contribution |
-|-------------|----------|-------------------|
-| **Fast tile path (`fullTileInBounds`)** | Control flow | **~30-40%** (primary) |
-| **Texture cache (`__ldg`)** | Memory | **~10-15%** |
-| Interleaved shared memory layout | Memory | ~10% |
-| Fused computations | Algorithmic | ~10% |
-| Gaussian symmetry | Compute | ~5% |
-| Constant memory | Memory | ~5% |
-| 16x16 block size | Occupancy | ~5% |
-| Single convolution pass | Compute | ~5% |
-| Padded shared memory | Memory | ~1% |
-| FP16 kernels | Precision | ~20-40% additional |
-
-### Details
-
-#### 1. Fast Tile Path (Primary Optimization)
-For interior tiles (most of the image), we skip boundary checking entirely:
-```cpp
-const bool fullTileInBounds = (gMinY >= 0) && (gMaxY < H) && (gMinX >= 0) && (gMaxX < W);
-if (fullTileInBounds) {
-    // Fast path: direct __ldg() reads, no boundary checks
-    sTile[row][col][0] = __ldg(row_ptr1 + col);
-    sTile[row][col][1] = __ldg(row_ptr2 + col);
-} else {
-    // Slow path: boundary-checked get_pix_value() for edge tiles
-}
-```
-This eliminates branch overhead and enables `__ldg()` texture cache reads for ~95% of tiles.
-
-#### 2. Fused Computations
-The original implementation computes multiple statistics (mean, variance, covariance) in separate passes. This implementation fuses all computations into a **single pass**, reducing redundant memory accesses.
-
-#### 3. Gaussian Symmetry Exploitation
-The Gaussian filter is symmetric. By pairing symmetric elements, we **halve the multiplications** from 11 to 6 per pixel.
-
-#### 4. Constant Memory for Coefficients
-Gaussian coefficients are stored in **CUDA constant memory** (`__constant__ float cGauss[11]`), reducing register pressure and enabling broadcast reads.
-
-#### 5. Optimized Block Size
-Uses **16x16** thread blocks (vs 32x32), improving GPU occupancy by reducing per-block resource usage.
-
-#### 6. Efficient Shared Memory Layout
-- **Interleaved layout** `sTile[y][x][2]` keeps img1/img2 for same pixel adjacent in memory, improving L1 cache locality
-- **Features-innermost layout** `xconv[y][x][5]` keeps all 5 statistics for same pixel in one cache line
-- Padded dimensions (`SHARED_X_PAD`, `CONV_X_PAD`) to reduce bank conflicts
-
-#### 7. Single Convolution Pass
-All statistics (μ₁, μ₂, σ₁², σ₂², σ₁₂) computed in one separable convolution pass.
-
-#### 8. Texture Cache Reads
-Uses `__ldg()` intrinsic for read-only global memory in the fast tile path, routing through texture cache. Provides **up to 15% speedup** on 1080p+ images.
-
-#### 9. FP16 Kernels with AMP
-Dedicated half-precision kernels with proper PyTorch AMP integration via `@torch.amp.custom_fwd/bwd` decorators.
+**Key optimizations:**
+- **Fast tile path**: Skips boundary checks for interior tiles (~95% of image)
+- **Texture cache**: Uses `__ldg()` for read-only global memory
+- **Fused computation**: All statistics (μ₁, μ₂, σ₁², σ₂², σ₁₂) in single pass
+- **Gaussian symmetry**: Halves multiplications by pairing symmetric elements
+- **16×16 blocks**: Better GPU occupancy than 32×32
+</details>
 
 ## Acknowledgments
 
