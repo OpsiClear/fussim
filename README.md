@@ -70,6 +70,13 @@ TORCH_CUDA_ARCH_LIST="8.9" pip install .  # RTX 4090
 ```
 </details>
 
+<details>
+<summary>Other platforms</summary>
+
+For macOS, older CUDA versions, or other configurations not covered by pre-built wheels, use the original [fused-ssim](https://github.com/rahul-goel/fused-ssim) which builds from source.
+
+</details>
+
 ## Quick Start
 
 ```python
