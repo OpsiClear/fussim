@@ -20,7 +20,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from fused_ssim import fused_ssim
+from fussim import fussim
 
 
 def gaussian(window_size, sigma):

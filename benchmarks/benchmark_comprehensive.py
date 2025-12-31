@@ -54,7 +54,7 @@ import torch
 import json
 import statistics
 
-from fused_ssim import fused_ssim
+from fussim import fussim
 
 # Config
 B, C, H, W = {config.batch}, {config.channels}, {config.height}, {config.width}
@@ -161,7 +161,7 @@ import statistics
 import sys
 sys.path.insert(0, "C:/temp/fused-ssim-original")
 
-from fused_ssim import fused_ssim
+from fussim import fussim
 
 # Config
 B, C, H, W = {config.batch}, {config.channels}, {config.height}, {config.width}

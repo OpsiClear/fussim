@@ -87,7 +87,7 @@ class TestForwardEquivalence:
             opt_script = f"""
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 data = torch.load("{tmpdir_normalized}/inputs.pt", weights_only=True)
 img1, img2 = data["img1"].cuda(), data["img2"].cuda()
 result = fused_ssim(img1, img2)
@@ -101,7 +101,7 @@ import torch
 import json
 import sys
 sys.path.insert(0, "C:/temp/fused-ssim-original")
-from fused_ssim import fused_ssim
+from fussim import fussim
 data = torch.load("{tmpdir_normalized}/inputs.pt", weights_only=True)
 img1, img2 = data["img1"].cuda(), data["img2"].cuda()
 result = fused_ssim(img1, img2)
@@ -119,7 +119,7 @@ print(json.dumps({{"ssim": result.item()}}))
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img = torch.rand(1, 3, 256, 256, device="cuda")
 result = fused_ssim(img, img)
@@ -133,7 +133,7 @@ print(json.dumps({"ssim": result.item()}))
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img1 = torch.rand(1, 3, 256, 256, device="cuda")
 img2 = 1.0 - img1
@@ -171,7 +171,7 @@ class TestBackwardEquivalence:
             opt_script = f"""
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 data = torch.load("{tmpdir_normalized}/inputs.pt", weights_only=True)
 img1 = data["img1"].cuda().requires_grad_(True)
 img2 = data["img2"].cuda()
@@ -190,7 +190,7 @@ import torch
 import json
 import sys
 sys.path.insert(0, "C:/temp/fused-ssim-original")
-from fused_ssim import fused_ssim
+from fussim import fussim
 data = torch.load("{tmpdir_normalized}/inputs.pt", weights_only=True)
 img1 = data["img1"].cuda().requires_grad_(True)
 img2 = data["img2"].cuda()
@@ -214,7 +214,7 @@ print(json.dumps({{"grad_norm": grad_norm, "grad_mean": grad_mean, "grad_std": g
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img1 = torch.rand(1, 3, 128, 128, device="cuda", requires_grad=True)
 img2 = torch.rand(1, 3, 128, 128, device="cuda")
@@ -237,7 +237,7 @@ class TestDeterminism:
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 results = []
 for _ in range(5):
     torch.manual_seed(42)
@@ -268,7 +268,7 @@ class TestEdgeCases:
         script = f"""
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img1 = torch.rand({b}, {c}, {h}, {w}, device="cuda")
 img2 = torch.rand({b}, {c}, {h}, {w}, device="cuda")
@@ -288,7 +288,7 @@ print(json.dumps({{"ssim": result.item(), "success": True}}))
         script = f"""
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img1 = torch.rand(1, 3, 128, {width}, device="cuda")
 img2 = torch.rand(1, 3, 128, {width}, device="cuda")
@@ -303,7 +303,7 @@ print(json.dumps({{"ssim": result.item(), "success": True}}))
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 img1 = torch.zeros(1, 3, 64, 64, device="cuda")
 img2 = torch.zeros(1, 3, 64, 64, device="cuda")
 result = fused_ssim(img1, img2)
@@ -318,7 +318,7 @@ print(json.dumps({"ssim": result.item(), "is_nan": torch.isnan(result).item()}))
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 img1 = torch.ones(1, 3, 64, 64, device="cuda")
 img2 = torch.ones(1, 3, 64, 64, device="cuda")
 result = fused_ssim(img1, img2)
@@ -333,7 +333,7 @@ print(json.dumps({"ssim": result.item(), "is_nan": torch.isnan(result).item()}))
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 img1 = torch.full((1, 3, 64, 64), 0.3, device="cuda")
 img2 = torch.full((1, 3, 64, 64), 0.7, device="cuda")
 result = fused_ssim(img1, img2)
@@ -353,7 +353,7 @@ class TestWindowSizes:
         script = f"""
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img1 = torch.rand(1, 3, 128, 128, device="cuda")
 img2 = torch.rand(1, 3, 128, 128, device="cuda")
@@ -372,7 +372,7 @@ class TestFP16:
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img1 = torch.rand(1, 3, 128, 128, device="cuda")
 img2 = torch.rand(1, 3, 128, 128, device="cuda")
@@ -388,7 +388,7 @@ print(json.dumps({"ssim": result.item()}))
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img1 = torch.rand(1, 3, 128, 128, device="cuda")
 img2 = torch.rand(1, 3, 128, 128, device="cuda")
@@ -404,7 +404,7 @@ print(json.dumps({"ssim": result.item()}))
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img1 = torch.rand(1, 3, 128, 128, device="cuda", requires_grad=True)
 img2 = torch.rand(1, 3, 128, 128, device="cuda")
@@ -437,7 +437,7 @@ class TestStress:
         script = f"""
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 img1 = torch.rand({b}, {c}, {h}, {w}, device="cuda")
 img2 = torch.rand({b}, {c}, {h}, {w}, device="cuda")
@@ -453,7 +453,7 @@ print(json.dumps({{"ssim": result.item(), "success": True}}))
         script = """
 import torch
 import json
-from fused_ssim import fused_ssim
+from fussim import fussim
 torch.manual_seed(42)
 results = []
 for i in range(10):

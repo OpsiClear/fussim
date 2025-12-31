@@ -7,7 +7,7 @@ a drop-in replacement for pytorch-msssim.
 import pytest
 import torch
 
-from fused_ssim import SSIM, ssim
+from fussim import SSIM, ssim
 
 
 @pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA not available")

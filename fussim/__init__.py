@@ -410,7 +410,7 @@ def fused_ssim(
 
     Example:
         >>> import torch
-        >>> from fused_ssim import fused_ssim
+        >>> from fussim import fused_ssim
         >>> img1 = torch.rand(1, 3, 256, 256, device="cuda", requires_grad=True)
         >>> img2 = torch.rand(1, 3, 256, 256, device="cuda")
         >>> ssim_value = fused_ssim(img1, img2)
@@ -514,7 +514,7 @@ def fused_ssim(
 #   from pytorch_msssim import ssim, SSIM
 #
 #   # After (fused-ssim - just change the import):
-#   from fused_ssim import ssim, SSIM
+#   from fussim import ssim, SSIM
 
 
 def ssim(
@@ -532,7 +532,7 @@ def ssim(
     Compute SSIM between two images - pytorch-msssim compatible API.
 
     This is a drop-in replacement for pytorch_msssim.ssim(). Simply change:
-        from pytorch_msssim import ssim  ->  from fused_ssim import ssim
+        from pytorch_msssim import ssim  ->  from fussim import ssim
 
     Args:
         X: First image (B, C, H, W). Gradients computed for this tensor.
@@ -553,7 +553,7 @@ def ssim(
         Window size can be 7, 9, or 11. K values are configurable.
 
     Example:
-        >>> from fused_ssim import ssim
+        >>> from fussim import ssim
         >>> X = torch.rand(4, 3, 256, 256, device="cuda")
         >>> Y = torch.rand(4, 3, 256, 256, device="cuda")
         >>> ssim_val = ssim(X, Y, data_range=1.0)
@@ -625,7 +625,7 @@ class SSIM(torch.nn.Module):
     SSIM as a PyTorch module - pytorch-msssim compatible API.
 
     This is a drop-in replacement for pytorch_msssim.SSIM(). Simply change:
-        from pytorch_msssim import SSIM  ->  from fused_ssim import SSIM
+        from pytorch_msssim import SSIM  ->  from fussim import SSIM
 
     Args:
         data_range: Value range of images. Default 255 for [0-255], use 1.0 for [0-1].
@@ -638,7 +638,7 @@ class SSIM(torch.nn.Module):
         nonnegative_ssim: If True, clamp negative SSIM values to 0.
 
     Example:
-        >>> from fused_ssim import SSIM
+        >>> from fussim import SSIM
         >>> ssim_module = SSIM(data_range=1.0)
         >>> X = torch.rand(4, 3, 256, 256, device="cuda", requires_grad=True)
         >>> Y = torch.rand(4, 3, 256, 256, device="cuda")

@@ -68,7 +68,7 @@ class TestPerformanceRegression:
 
     def test_forward_throughput_small(self):
         """Forward pass throughput for small images."""
-        from fused_ssim import fused_ssim
+        from fussim import fussim
 
         torch.manual_seed(42)
         img1 = torch.rand(1, 3, 512, 512, device="cuda")
@@ -87,7 +87,7 @@ class TestPerformanceRegression:
 
     def test_forward_throughput_large(self):
         """Forward pass throughput for large images."""
-        from fused_ssim import fused_ssim
+        from fussim import fussim
 
         torch.manual_seed(42)
         img1 = torch.rand(1, 3, 1920, 1080, device="cuda")
@@ -106,7 +106,7 @@ class TestPerformanceRegression:
 
     def test_training_throughput_small(self):
         """Training (forward + backward) throughput for small images."""
-        from fused_ssim import fused_ssim
+        from fussim import fussim
 
         torch.manual_seed(42)
         img1 = torch.rand(1, 3, 512, 512, device="cuda", requires_grad=True)
@@ -123,7 +123,7 @@ class TestPerformanceRegression:
 
     def test_training_throughput_large(self):
         """Training (forward + backward) throughput for large images."""
-        from fused_ssim import fused_ssim
+        from fussim import fussim
 
         torch.manual_seed(42)
         img1 = torch.rand(1, 3, 1920, 1080, device="cuda", requires_grad=True)
@@ -140,7 +140,7 @@ class TestPerformanceRegression:
 
     def test_fp16_throughput(self):
         """FP16 mode (via autocast) should not be slower than FP32."""
-        from fused_ssim import fused_ssim
+        from fussim import fussim
 
         torch.manual_seed(42)
         img1 = torch.rand(4, 3, 512, 512, device="cuda", requires_grad=True)
@@ -171,7 +171,7 @@ class TestPerformanceRegression:
 
     def test_batch_scaling(self):
         """Throughput should scale reasonably with batch size."""
-        from fused_ssim import fused_ssim
+        from fussim import fussim
 
         torch.manual_seed(42)
 

@@ -13,7 +13,7 @@ Tolerance levels:
 import pytest
 import torch
 
-from fused_ssim import fused_ssim
+from fussim import fussim
 
 # Tolerance levels for different precision modes
 TOLERANCES = {

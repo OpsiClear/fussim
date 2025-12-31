@@ -11,7 +11,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from fused_ssim import fused_ssim
+from fussim import fussim
 
 # Reference implementation from pytorch-ssim
 # https://github.com/Po-Hsun-Su/pytorch-ssim

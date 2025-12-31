@@ -85,7 +85,7 @@ def run_benchmarks():
 
     # 1. Our optimized implementation
     try:
-        from fused_ssim import fused_ssim
+        from fussim import fussim
 
         implementations["optimized-fused-ssim"] = lambda x, y: fused_ssim(
             x, y, padding="valid", data_range=1.0
@@ -94,7 +94,7 @@ def run_benchmarks():
 
         # Try compat API if available
         try:
-            from fused_ssim import ssim as compat_ssim
+            from fussim import ssim as compat_ssim
 
             implementations["optimized (compat API)"] = lambda x, y: compat_ssim(
                 x, y, data_range=1.0

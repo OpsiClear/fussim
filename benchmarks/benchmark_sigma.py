@@ -12,7 +12,7 @@ import time
 
 import torch
 
-from fused_ssim import fused_ssim, SUPPORTED_WINDOW_SIZES
+from fussim import fussim, SUPPORTED_WINDOW_SIZES
 
 
 # Simulated cache for Gaussian coefficients

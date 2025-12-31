@@ -7,7 +7,7 @@ and GradScaler for mixed precision training.
 import torch
 import torch.nn as nn
 
-from fused_ssim import fused_ssim
+from fussim import fussim
 
 
 class TestAMPAutocast:

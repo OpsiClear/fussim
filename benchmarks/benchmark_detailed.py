@@ -140,7 +140,7 @@ def benchmark_backward(
 
 def run_single_benchmark(config: BenchmarkConfig) -> BenchmarkResult:
     """Run a single benchmark configuration."""
-    from fused_ssim import fused_ssim
+    from fussim import fussim
 
     torch.manual_seed(42)
 

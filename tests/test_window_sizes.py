@@ -2,7 +2,7 @@
 import pytest
 import torch
 
-from fused_ssim import SUPPORTED_WINDOW_SIZES, fused_ssim
+from fussim import SUPPORTED_WINDOW_SIZES, fused_ssim
 
 
 @pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA not available")
