@@ -175,6 +175,20 @@ jobs:
         env:
           DISTUTILS_USE_SDK: "1"
 
+      - name: Fix Linux wheel platform tag
+        if: runner.os == 'Linux'
+        run: |
+          cd dist
+          for whl in *linux_x86_64.whl; do
+            if [ -f "$whl" ]; then
+              newname="${whl/linux_x86_64/manylinux_2_28_x86_64}"
+              echo "Renaming $whl -> $newname"
+              mv "$whl" "$newname"
+            fi
+          done
+          ls -la
+        shell: bash
+
       - name: Test wheel installation
         run: |
           pip install dist/*.whl
@@ -271,6 +285,20 @@ jobs:
         shell: bash
         env:
           DISTUTILS_USE_SDK: "1"
+
+      - name: Fix Linux wheel platform tag
+        if: runner.os == 'Linux'
+        run: |
+          cd dist
+          for whl in *linux_x86_64.whl; do
+            if [ -f "$whl" ]; then
+              newname="${whl/linux_x86_64/manylinux_2_28_x86_64}"
+              echo "Renaming $whl -> $newname"
+              mv "$whl" "$newname"
+            fi
+          done
+          ls -la
+        shell: bash
 
       - name: Test wheel installation
         run: |
