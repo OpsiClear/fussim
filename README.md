@@ -1,18 +1,30 @@
 # fussim
 
-> Fast CUDA SSIM for PyTorch. Based on [MrNeRF/optimized-fused-ssim](https://github.com/MrNeRF/optimized-fused-ssim).
+> Fast CUDA SSIM for PyTorch — `pip install fussim` with pre-built wheels.
+>
+> Based on [MrNeRF/optimized-fused-ssim](https://github.com/MrNeRF/optimized-fused-ssim).
 
 **~7x faster than pytorch-msssim** | FP16/AMP support | Drop-in replacement
 
 ## Installation
 
-Pre-built wheels are available for PyTorch 2.5-2.9 and CUDA 11.8-12.8.
+```bash
+pip install fussim
+```
+
+This works out of the box for:
+- **Linux**: PyTorch 2.9 + CUDA 12.8
+- **Windows**: PyTorch 2.8 + CUDA 12.8
+
+### Other PyTorch/CUDA versions
+
+Pre-built wheels for PyTorch 2.5-2.9 and CUDA 11.8-12.8:
 
 ```bash
 pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/
 ```
 
-This auto-selects the correct wheel for your installed PyTorch and CUDA version.
+This auto-selects the correct wheel for your installed PyTorch version.
 
 <table>
 <tr>
@@ -25,12 +37,6 @@ Select your Python, PyTorch, and CUDA versions to get the exact install command.
 </td>
 </tr>
 </table>
-
-> **Note:** `pip install fussim` (without extra-index-url) only works with:
-> - **Linux**: PyTorch 2.9 + CUDA 12.8
-> - **Windows**: PyTorch 2.8 + CUDA 12.8
->
-> For any other version, you **must** use `--extra-index-url` or the build will fail.
 
 <details>
 <summary>Compatibility matrix</summary>
