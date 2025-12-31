@@ -10,8 +10,16 @@
 pip install fussim
 ```
 
+Pre-built wheels for PyTorch 2.5-2.9 and CUDA 11.8-12.8:
+
+```bash
+pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/
+```
+
 <details>
 <summary>Build from source</summary>
+
+Requires CUDA Toolkit and C++ compiler.
 
 ```bash
 git clone https://github.com/OpsiClear/fussim.git
