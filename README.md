@@ -26,7 +26,10 @@ Select your Python, PyTorch, and CUDA versions to get the exact install command.
 </tr>
 </table>
 
-> **Note:** `pip install fussim` (without extra-index-url) only works with **PyTorch 2.8 + CUDA 12.6**.
+> **Note:** `pip install fussim` (without extra-index-url) only works with:
+> - **Linux**: PyTorch 2.9 + CUDA 12.8
+> - **Windows**: PyTorch 2.8 + CUDA 12.8
+>
 > For any other version, you **must** use `--extra-index-url` or the build will fail.
 
 <details>

@@ -188,7 +188,8 @@ jobs:
           path: dist/*.whl
 
   # Build default wheels for PyPI (no local version identifier)
-  # These use PyTorch 2.8 + CUDA 12.6 as the "default" configuration
+  # Linux: PyTorch 2.9.0 + CUDA 12.8 (latest)
+  # Windows: PyTorch 2.8.0 + CUDA 12.8 (2.9.0 has Windows bug)
   build_pypi_wheels:
     name: pypi-py${{ matrix.python }}-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -217,21 +218,30 @@ jobs:
           echo "Disk space after cleanup:"
           df -h
 
-      - name: Install CUDA cu126 (Linux)
+      - name: Install CUDA cu128 (Linux)
         if: runner.os == 'Linux'
         run: |
-          bash .github/workflows/cuda/Linux.sh cu126
+          bash .github/workflows/cuda/Linux.sh cu128
         shell: bash
 
-      - name: Install CUDA cu126 (Windows)
+      - name: Install CUDA cu128 (Windows)
         if: runner.os == 'Windows'
         run: |
-          bash .github/workflows/cuda/Windows.sh cu126
+          bash .github/workflows/cuda/Windows.sh cu128
         shell: bash
 
-      - name: Install PyTorch 2.8.0+cu126
+      - name: Install PyTorch (Linux - 2.9.0)
+        if: runner.os == 'Linux'
         run: |
-          pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu126
+          pip install torch==2.9.0 --index-url https://download.pytorch.org/whl/cu128
+          python -c "import torch; print('PyTorch:', torch.__version__)"
+          python -c "import torch; print('CUDA:', torch.version.cuda)"
+        shell: bash
+
+      - name: Install PyTorch (Windows - 2.8.0)
+        if: runner.os == 'Windows'
+        run: |
+          pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
           python -c "import torch; print('PyTorch:', torch.__version__)"
           python -c "import torch; print('CUDA:', torch.version.cuda)"
         shell: bash
@@ -256,7 +266,7 @@ jobs:
       # NOTE: No version modification - keep clean version for PyPI
       - name: Build wheel (PyPI - no local version)
         run: |
-          source .github/workflows/cuda/${{ runner.os }}-env.sh cu126
+          source .github/workflows/cuda/${{ runner.os }}-env.sh cu128
           MAX_JOBS=${{ inputs.max_jobs || '2' }} python setup.py bdist_wheel --dist-dir=dist
         shell: bash
         env:

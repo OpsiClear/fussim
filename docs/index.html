@@ -194,8 +194,8 @@
                     <option value="2.5.1">PyTorch 2.5.1</option>
                     <option value="2.6.0">PyTorch 2.6.0</option>
                     <option value="2.7.1">PyTorch 2.7.1</option>
-                    <option value="2.8.0" selected>PyTorch 2.8.0</option>
-                    <option value="2.9.0">PyTorch 2.9.0</option>
+                    <option value="2.8.0">PyTorch 2.8.0</option>
+                    <option value="2.9.0" selected>PyTorch 2.9.0</option>
                 </select>
             </div>
 
@@ -205,8 +205,8 @@
                     <option value="cu118">CUDA 11.8</option>
                     <option value="cu121">CUDA 12.1</option>
                     <option value="cu124">CUDA 12.4</option>
-                    <option value="cu126" selected>CUDA 12.6</option>
-                    <option value="cu128">CUDA 12.8</option>
+                    <option value="cu126">CUDA 12.6</option>
+                    <option value="cu128" selected>CUDA 12.8</option>
                 </select>
             </div>
 
@@ -294,7 +294,9 @@
             '2.9.0': ['cu126', 'cu128']
         };
 
-        const PYPI_DEFAULT = { torch: '2.8.0', cuda: 'cu126' };
+        // PyPI defaults: Linux uses 2.9.0, Windows uses 2.8.0 (both CUDA 12.8)
+        const PYPI_LINUX = { torch: '2.9.0', cuda: 'cu128' };
+        const PYPI_WINDOWS = { torch: '2.8.0', cuda: 'cu128' };
 
         function updateCudaOptions() {
             const torch = document.getElementById('torch').value;
@@ -341,14 +343,22 @@
             const noteEl = document.getElementById('note');
             const warningEl = document.getElementById('warning');
 
-            const isPyPIDefault = torch === PYPI_DEFAULT.torch && cuda === PYPI_DEFAULT.cuda;
+            const isPyPILinux = torch === PYPI_LINUX.torch && cuda === PYPI_LINUX.cuda;
+            const isPyPIWindows = torch === PYPI_WINDOWS.torch && cuda === PYPI_WINDOWS.cuda;
             const isWindows29 = torch === '2.9.0';
 
             let command, note;
 
-            if (isPyPIDefault) {
+            if (isPyPILinux && isPyPIWindows) {
+                // Both match (shouldn't happen with current config)
                 command = 'pip install fussim';
                 note = 'This is the default PyPI configuration. No extra index needed.';
+            } else if (isPyPILinux) {
+                command = 'pip install fussim';
+                note = 'This is the default PyPI configuration for Linux. No extra index needed.';
+            } else if (isPyPIWindows) {
+                command = 'pip install fussim';
+                note = 'This is the default PyPI configuration for Windows. No extra index needed.';
             } else {
                 const torchTag = 'pt' + torch.replace('.', '').slice(0, 2);
                 command = `pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/`;
