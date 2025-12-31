@@ -90,7 +90,7 @@ jobs:
           keep_files: false
 
   upload_pypi:
-    name: Upload sdist to PyPI
+    name: Upload to PyPI
     needs: [build_wheels]
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && !inputs.skip_pypi) }}
@@ -104,6 +104,16 @@ jobs:
         with:
           name: sdist
           path: dist
+
+      - name: Download PyPI wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pypi-wheel-*
+          path: dist
+          merge-multiple: true
+
+      - name: List packages for PyPI
+        run: ls -la dist/
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
