@@ -301,6 +301,7 @@ if not _building_sdist:
     if IS_WINDOWS:
         nvcc_flags.extend(
             [
+                "--allow-unsupported-compiler",  # Allow newer MSVC versions
                 "-Xcompiler",
                 "/wd4819",  # Suppress Unicode warning
                 "-Xcompiler",
