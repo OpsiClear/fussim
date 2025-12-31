@@ -98,6 +98,10 @@ jobs:
           - python: '3.13'
             torch: '2.7.1'
 
+          # PyTorch 2.9.0 Windows: has 'std': ambiguous symbol bug in compiled_autograd.h
+          - os: 'windows-2022'
+            torch: '2.9.0'
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
