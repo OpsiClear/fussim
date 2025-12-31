@@ -6,13 +6,31 @@
 
 ## Installation
 
-Pre-built wheels for PyTorch 2.5-2.9, CUDA 11.8-12.8, Python 3.10-3.13:
+```bash
+pip install fussim
+```
+
+This installs the default wheel (PyTorch 2.8 + CUDA 12.6).
+
+<details>
+<summary>Other PyTorch/CUDA versions</summary>
+
+For other combinations, use the [**Installation Configurator**](https://opsiclear.github.io/fussim/) or:
 
 ```bash
 pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/
 ```
 
-> **Note:** The `--extra-index-url` is required to get pre-built wheels. Without it, pip will try to build from source which requires CUDA Toolkit + C++ compiler and may fail.
+| PyTorch | CUDA 11.8 | CUDA 12.1 | CUDA 12.4 | CUDA 12.6 | CUDA 12.8 |
+|---------|-----------|-----------|-----------|-----------|-----------|
+| 2.5.1   | &#10003;  | &#10003;  | &#10003;  | -         | -         |
+| 2.6.0   | &#10003;  | -         | &#10003;  | &#10003;  | -         |
+| 2.7.1   | &#10003;  | -         | -         | &#10003;  | &#10003;  |
+| 2.8.0   | -         | -         | -         | &#10003;  | &#10003;  |
+| 2.9.0*  | -         | -         | -         | &#10003;  | &#10003;  |
+
+*PyTorch 2.9.0 is Linux-only. Python 3.13 requires PyTorch 2.8.0+.
+</details>
 
 <details>
 <summary>Build from source</summary>

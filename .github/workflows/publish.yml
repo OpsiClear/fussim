@@ -79,14 +79,16 @@ jobs:
       - name: Generate index pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python .github/workflows/generate_index_pages.py --outdir ./whl
+        run: python .github/workflows/generate_index_pages.py --outdir ./site/whl
+
+      - name: Copy configurator
+        run: cp docs/index.html ./site/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./whl
-          destination_dir: whl
+          publish_dir: ./site
           keep_files: false
 
   upload_pypi:
