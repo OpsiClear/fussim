@@ -6,25 +6,28 @@
 
 ## Installation
 
-```bash
-pip install fussim
-```
-
-Pre-built wheels for PyTorch 2.5-2.9 and CUDA 11.8-12.8:
+Pre-built wheels for PyTorch 2.5-2.9, CUDA 11.8-12.8, Python 3.10-3.13:
 
 ```bash
 pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/
 ```
 
+> **Note:** The `--extra-index-url` is required to get pre-built wheels. Without it, pip will try to build from source which requires CUDA Toolkit + C++ compiler and may fail.
+
 <details>
 <summary>Build from source</summary>
 
-Requires CUDA Toolkit and C++ compiler.
+Requires CUDA Toolkit and C++ compiler (Visual Studio on Windows, GCC on Linux).
 
 ```bash
 git clone https://github.com/OpsiClear/fussim.git
 cd fussim
 pip install .
+```
+
+For specific GPU architecture:
+```bash
+TORCH_CUDA_ARCH_LIST="8.9" pip install .  # RTX 4090
 ```
 </details>
 
