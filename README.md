@@ -6,30 +6,49 @@
 
 ## Installation
 
+### From PyPI (PyTorch 2.8 + CUDA 12.6)
+
 ```bash
 pip install fussim
 ```
 
-This installs the default wheel (PyTorch 2.8 + CUDA 12.6).
+This installs a pre-built wheel for **PyTorch 2.8 + CUDA 12.6**. If your environment matches, you're done.
 
-<details>
-<summary>Other PyTorch/CUDA versions</summary>
+### Other PyTorch/CUDA Versions
 
-For other combinations, use the [**Installation Configurator**](https://opsiclear.github.io/fussim/) or:
+Pre-built wheels are available for PyTorch 2.5-2.9 and CUDA 11.8-12.8:
 
 ```bash
 pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/
 ```
 
-| PyTorch | CUDA 11.8 | CUDA 12.1 | CUDA 12.4 | CUDA 12.6 | CUDA 12.8 |
-|---------|-----------|-----------|-----------|-----------|-----------|
-| 2.5.1   | &#10003;  | &#10003;  | &#10003;  | -         | -         |
-| 2.6.0   | &#10003;  | -         | &#10003;  | &#10003;  | -         |
-| 2.7.1   | &#10003;  | -         | -         | &#10003;  | &#10003;  |
-| 2.8.0   | -         | -         | -         | &#10003;  | &#10003;  |
-| 2.9.0*  | -         | -         | -         | &#10003;  | &#10003;  |
+This command auto-selects the correct wheel for your installed PyTorch version.
 
-*PyTorch 2.9.0 is Linux-only. Python 3.13 requires PyTorch 2.8.0+.
+<table>
+<tr>
+<td>
+
+**[Open Installation Configurator](https://opsiclear.github.io/fussim/)**
+
+Select your Python, PyTorch, and CUDA versions to get the exact install command.
+
+</td>
+</tr>
+</table>
+
+<details>
+<summary>Compatibility matrix</summary>
+
+| PyTorch | Python | CUDA 11.8 | CUDA 12.1 | CUDA 12.4 | CUDA 12.6 | CUDA 12.8 |
+|---------|--------|-----------|-----------|-----------|-----------|-----------|
+| 2.5.1   | 3.10-3.12 | &#10003; | &#10003; | &#10003; | - | - |
+| 2.6.0   | 3.10-3.12 | &#10003; | - | &#10003; | &#10003; | - |
+| 2.7.1   | 3.10-3.12 | &#10003; | - | - | &#10003; | &#10003; |
+| 2.8.0   | 3.10-3.13 | - | - | - | &#10003; | &#10003; |
+| 2.9.0   | 3.10-3.13 | - | - | - | &#10003;* | &#10003;* |
+
+*Linux only. Windows has a [known PyTorch bug](https://github.com/pytorch/pytorch/issues/141026).
+
 </details>
 
 <details>
