@@ -98,13 +98,6 @@ jobs:
           - python: '3.13'
             torch: '2.7.1'
 
-          # Windows + CUDA 11.8/12.1: MSVC 14.44 requires CUDA 12.4+
-          # Error: "STL1002: Unexpected compiler version, expected CUDA 12.4 or newer"
-          - os: 'windows-2022'
-            cuda: 'cu118'
-          - os: 'windows-2022'
-            cuda: 'cu121'
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

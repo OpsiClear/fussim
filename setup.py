@@ -302,6 +302,7 @@ if not _building_sdist:
         nvcc_flags.extend(
             [
                 "--allow-unsupported-compiler",  # Allow newer MSVC versions
+                "-D_ALLOW_COMPILER_AND_STL_VERSION_MISMATCH",  # Fix STL1002 error with old CUDA
                 "-Xcompiler",
                 "/wd4819",  # Suppress Unicode warning
                 "-Xcompiler",
