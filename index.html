@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fussim - Installation Configurator</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --success: #3fb950;
+            --warning: #d29922;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 16px;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .command-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .command-box code {
+            color: var(--success);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .copy-btn:hover {
+            color: var(--text);
+            border-color: var(--text-muted);
+        }
+
+        .note {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        .warning {
+            background: rgba(210, 153, 34, 0.1);
+            border: 1px solid var(--warning);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        .matrix {
+            margin-top: 32px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg);
+            font-weight: 600;
+        }
+
+        td.supported {
+            color: var(--success);
+        }
+
+        td.unsupported {
+            color: var(--text-muted);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>fussim</h1>
+        <p class="subtitle">Fast CUDA SSIM for PyTorch - Installation Configurator</p>
+
+        <div class="card">
+            <div class="form-group">
+                <label for="python">Python Version</label>
+                <select id="python">
+                    <option value="3.10">Python 3.10</option>
+                    <option value="3.11">Python 3.11</option>
+                    <option value="3.12" selected>Python 3.12</option>
+                    <option value="3.13">Python 3.13</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="torch">PyTorch Version</label>
+                <select id="torch">
+                    <option value="2.5.1">PyTorch 2.5.1</option>
+                    <option value="2.6.0">PyTorch 2.6.0</option>
+                    <option value="2.7.1">PyTorch 2.7.1</option>
+                    <option value="2.8.0">PyTorch 2.8.0</option>
+                    <option value="2.9.0" selected>PyTorch 2.9.0</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cuda">CUDA Version</label>
+                <select id="cuda">
+                    <option value="cu118">CUDA 11.8</option>
+                    <option value="cu121">CUDA 12.1</option>
+                    <option value="cu124">CUDA 12.4</option>
+                    <option value="cu126">CUDA 12.6</option>
+                    <option value="cu128" selected>CUDA 12.8</option>
+                </select>
+            </div>
+
+            <label>Install Command</label>
+            <div class="command-box">
+                <code id="command">pip install fussim</code>
+                <button class="copy-btn" onclick="copyCommand()">Copy</button>
+            </div>
+
+            <div id="note" class="note"></div>
+            <div id="warning" class="warning" style="display: none;"></div>
+        </div>
+
+        <div class="card matrix">
+            <h3 style="margin-top: 0;">Compatibility Matrix</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>PyTorch</th>
+                        <th>CUDA 11.8</th>
+                        <th>CUDA 12.1</th>
+                        <th>CUDA 12.4</th>
+                        <th>CUDA 12.6</th>
+                        <th>CUDA 12.8</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2.5.1</td>
+                        <td class="supported">&#10003;</td>
+                        <td class="supported">&#10003;</td>
+                        <td class="supported">&#10003;</td>
+                        <td class="unsupported">-</td>
+                        <td class="unsupported">-</td>
+                    </tr>
+                    <tr>
+                        <td>2.6.0</td>
+                        <td class="supported">&#10003;</td>
+                        <td class="unsupported">-</td>
+                        <td class="supported">&#10003;</td>
+                        <td class="supported">&#10003;</td>
+                        <td class="unsupported">-</td>
+                    </tr>
+                    <tr>
+                        <td>2.7.1</td>
+                        <td class="supported">&#10003;</td>
+                        <td class="unsupported">-</td>
+                        <td class="unsupported">-</td>
+                        <td class="supported">&#10003;</td>
+                        <td class="supported">&#10003;</td>
+                    </tr>
+                    <tr>
+                        <td>2.8.0</td>
+                        <td class="unsupported">-</td>
+                        <td class="unsupported">-</td>
+                        <td class="unsupported">-</td>
+                        <td class="supported">&#10003;</td>
+                        <td class="supported">&#10003;</td>
+                    </tr>
+                    <tr>
+                        <td>2.9.0</td>
+                        <td class="unsupported">-</td>
+                        <td class="unsupported">-</td>
+                        <td class="unsupported">-</td>
+                        <td class="supported">&#10003;*</td>
+                        <td class="supported">&#10003;*</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="note">* PyTorch 2.9.0 wheels are Linux-only (Windows has a known PyTorch bug)</p>
+            <p class="note">Python 3.13 requires PyTorch 2.8.0 or newer</p>
+        </div>
+
+        <div class="footer">
+            <p><a href="https://github.com/OpsiClear/fussim">GitHub</a> &middot; <a href="https://pypi.org/project/fussim/">PyPI</a></p>
+        </div>
+    </div>
+
+    <script>
+        const COMPAT = {
+            '2.5.1': ['cu118', 'cu121', 'cu124'],
+            '2.6.0': ['cu118', 'cu124', 'cu126'],
+            '2.7.1': ['cu118', 'cu126', 'cu128'],
+            '2.8.0': ['cu126', 'cu128'],
+            '2.9.0': ['cu126', 'cu128']
+        };
+
+        // PyPI defaults: Linux uses 2.9.0, Windows uses 2.8.0 (both CUDA 12.8)
+        const PYPI_LINUX = { torch: '2.9.0', cuda: 'cu128' };
+        const PYPI_WINDOWS = { torch: '2.8.0', cuda: 'cu128' };
+
+        function updateCudaOptions() {
+            const torch = document.getElementById('torch').value;
+            const cuda = document.getElementById('cuda');
+            const currentCuda = cuda.value;
+            const supported = COMPAT[torch];
+
+            for (const option of cuda.options) {
+                option.disabled = !supported.includes(option.value);
+            }
+
+            if (!supported.includes(currentCuda)) {
+                cuda.value = supported[supported.length - 1];
+            }
+
+            updateCommand();
+        }
+
+        function updatePythonOptions() {
+            const python = document.getElementById('python').value;
+            const torch = document.getElementById('torch');
+
+            // Python 3.13 only supports PyTorch 2.8.0+
+            for (const option of torch.options) {
+                if (python === '3.13') {
+                    option.disabled = !['2.8.0', '2.9.0'].includes(option.value);
+                } else {
+                    option.disabled = false;
+                }
+            }
+
+            if (python === '3.13' && !['2.8.0', '2.9.0'].includes(torch.value)) {
+                torch.value = '2.8.0';
+            }
+
+            updateCudaOptions();
+        }
+
+        function updateCommand() {
+            const python = document.getElementById('python').value;
+            const torch = document.getElementById('torch').value;
+            const cuda = document.getElementById('cuda').value;
+            const commandEl = document.getElementById('command');
+            const noteEl = document.getElementById('note');
+            const warningEl = document.getElementById('warning');
+
+            const isPyPILinux = torch === PYPI_LINUX.torch && cuda === PYPI_LINUX.cuda;
+            const isPyPIWindows = torch === PYPI_WINDOWS.torch && cuda === PYPI_WINDOWS.cuda;
+            const isWindows29 = torch === '2.9.0';
+
+            let command, note;
+
+            if (isPyPILinux && isPyPIWindows) {
+                // Both match (shouldn't happen with current config)
+                command = 'pip install fussim';
+                note = 'This is the default PyPI configuration. No extra index needed.';
+            } else if (isPyPILinux) {
+                command = 'pip install fussim';
+                note = 'This is the default PyPI configuration for Linux. No extra index needed.';
+            } else if (isPyPIWindows) {
+                command = 'pip install fussim';
+                note = 'This is the default PyPI configuration for Windows. No extra index needed.';
+            } else {
+                const torchTag = 'pt' + torch.replace('.', '').slice(0, 2);
+                command = `pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/`;
+                note = `Pre-built wheel: fussim-x.x.x+${torchTag}${cuda}`;
+            }
+
+            commandEl.textContent = command;
+            noteEl.textContent = note;
+
+            if (isWindows29) {
+                warningEl.style.display = 'block';
+                warningEl.textContent = 'PyTorch 2.9.0 wheels are Linux-only. Windows builds fail due to a PyTorch bug.';
+            } else {
+                warningEl.style.display = 'none';
+            }
+        }
+
+        function copyCommand() {
+            const command = document.getElementById('command').textContent;
+            navigator.clipboard.writeText(command);
+
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 1500);
+        }
+
+        document.getElementById('python').addEventListener('change', updatePythonOptions);
+        document.getElementById('torch').addEventListener('change', updateCudaOptions);
+        document.getElementById('cuda').addEventListener('change', updateCommand);
+
+        // Initialize
+        updatePythonOptions();
+    </script>
+</body>
+</html>
