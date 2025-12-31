@@ -6,23 +6,13 @@
 
 ## Installation
 
-### From PyPI (PyTorch 2.8 + CUDA 12.6)
-
-```bash
-pip install fussim
-```
-
-This installs a pre-built wheel for **PyTorch 2.8 + CUDA 12.6**. If your environment matches, you're done.
-
-### Other PyTorch/CUDA Versions
-
-Pre-built wheels are available for PyTorch 2.5-2.9 and CUDA 11.8-12.8:
+Pre-built wheels are available for PyTorch 2.5-2.9 and CUDA 11.8-12.8.
 
 ```bash
 pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/
 ```
 
-This command auto-selects the correct wheel for your installed PyTorch version.
+This auto-selects the correct wheel for your installed PyTorch and CUDA version.
 
 <table>
 <tr>
@@ -35,6 +25,9 @@ Select your Python, PyTorch, and CUDA versions to get the exact install command.
 </td>
 </tr>
 </table>
+
+> **Note:** `pip install fussim` (without extra-index-url) only works with **PyTorch 2.8 + CUDA 12.6**.
+> For any other version, you **must** use `--extra-index-url` or the build will fail.
 
 <details>
 <summary>Compatibility matrix</summary>
