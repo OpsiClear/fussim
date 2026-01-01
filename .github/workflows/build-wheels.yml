@@ -170,7 +170,7 @@ jobs:
       - name: Build wheel
         run: |
           source .github/workflows/cuda/${{ runner.os }}-env.sh ${{ matrix.cuda }}
-          MAX_JOBS=${{ inputs.max_jobs || '2' }} python setup.py bdist_wheel --dist-dir=dist
+          FUSSIM_CUDA_VARIANT=${{ matrix.cuda }} MAX_JOBS=${{ inputs.max_jobs || '2' }} python setup.py bdist_wheel --dist-dir=dist
         shell: bash
         env:
           DISTUTILS_USE_SDK: "1"
@@ -201,11 +201,12 @@ jobs:
           name: wheel-py${{ matrix.python }}-torch${{ matrix.torch }}-${{ matrix.cuda }}-${{ matrix.os }}
           path: dist/*.whl
 
-  # Build default wheels for PyPI (no local version identifier)
-  # Linux: PyTorch 2.9.0 + CUDA 12.8 (latest)
-  # Windows: PyTorch 2.8.0 + CUDA 12.8 (2.9.0 has Windows bug)
-  build_pypi_wheels:
-    name: pypi-py${{ matrix.python }}-${{ matrix.os }}
+  # =============================================================================
+  # Build CUDA variant extensions for fat wheel
+  # Each job builds one CUDA variant's .so/.pyd file
+  # =============================================================================
+  build_cuda_variant:
+    name: cuda-${{ matrix.cuda }}-py${{ matrix.python }}-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -213,6 +214,11 @@ jobs:
       matrix:
         os: [ubuntu-22.04, windows-2022]
         python: ['3.10', '3.11', '3.12', '3.13']
+        cuda: ['cu118', 'cu124', 'cu126', 'cu128']
+        exclude:
+          # Python 3.13 + CUDA 11.8: old toolchains don't support Python 3.13
+          - python: '3.13'
+            cuda: 'cu118'
 
     steps:
       - name: Checkout repository
@@ -232,30 +238,29 @@ jobs:
           echo "Disk space after cleanup:"
           df -h
 
-      - name: Install CUDA cu128 (Linux)
+      - name: Install CUDA ${{ matrix.cuda }} (Linux)
         if: runner.os == 'Linux'
         run: |
-          bash .github/workflows/cuda/Linux.sh cu128
+          bash .github/workflows/cuda/Linux.sh ${{ matrix.cuda }}
         shell: bash
 
-      - name: Install CUDA cu128 (Windows)
+      - name: Install CUDA ${{ matrix.cuda }} (Windows)
         if: runner.os == 'Windows'
         run: |
-          bash .github/workflows/cuda/Windows.sh cu128
+          bash .github/workflows/cuda/Windows.sh ${{ matrix.cuda }}
         shell: bash
 
-      - name: Install PyTorch (Linux - 2.9.0)
-        if: runner.os == 'Linux'
+      # Install PyTorch version that matches CUDA
+      - name: Install PyTorch for CUDA ${{ matrix.cuda }}
         run: |
-          pip install torch==2.9.0 --index-url https://download.pytorch.org/whl/cu128
-          python -c "import torch; print('PyTorch:', torch.__version__)"
-          python -c "import torch; print('CUDA:', torch.version.cuda)"
-        shell: bash
-
-      - name: Install PyTorch (Windows - 2.8.0)
-        if: runner.os == 'Windows'
-        run: |
-          pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+          # Pick PyTorch version based on CUDA
+          case "${{ matrix.cuda }}" in
+            cu118) TORCH_VER="2.5.1" ;;
+            cu124) TORCH_VER="2.6.0" ;;
+            cu126) TORCH_VER="2.8.0" ;;
+            cu128) TORCH_VER="2.8.0" ;;
+          esac
+          pip install torch==${TORCH_VER} --index-url https://download.pytorch.org/whl/${{ matrix.cuda }}
           python -c "import torch; print('PyTorch:', torch.__version__)"
           python -c "import torch; print('CUDA:', torch.version.cuda)"
         shell: bash
@@ -277,14 +282,113 @@ jobs:
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1
 
-      # NOTE: No version modification - keep clean version for PyPI
-      - name: Build wheel (PyPI - no local version)
+      - name: Build CUDA variant extension
         run: |
-          source .github/workflows/cuda/${{ runner.os }}-env.sh cu128
-          MAX_JOBS=${{ inputs.max_jobs || '2' }} python setup.py bdist_wheel --dist-dir=dist
+          source .github/workflows/cuda/${{ runner.os }}-env.sh ${{ matrix.cuda }}
+          FUSSIM_CUDA_VARIANT=${{ matrix.cuda }} MAX_JOBS=${{ inputs.max_jobs || '2' }} python setup.py build_ext --inplace
+          # Find and copy the built extension
+          mkdir -p cuda_ext
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            find build -name "_cuda_${{ matrix.cuda }}*.pyd" -exec cp {} cuda_ext/ \;
+          else
+            find build -name "_cuda_${{ matrix.cuda }}*.so" -exec cp {} cuda_ext/ \;
+          fi
+          ls -la cuda_ext/
         shell: bash
         env:
           DISTUTILS_USE_SDK: "1"
+
+      - name: Upload CUDA variant extension
+        uses: actions/upload-artifact@v4
+        with:
+          name: cuda-ext-${{ matrix.cuda }}-py${{ matrix.python }}-${{ matrix.os }}
+          path: cuda_ext/*
+
+  # =============================================================================
+  # Merge all CUDA variants into fat wheel for PyPI
+  # =============================================================================
+  build_pypi_wheels:
+    name: pypi-py${{ matrix.python }}-${{ matrix.os }}
+    needs: [build_cuda_variant]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-2022]
+        python: ['3.10', '3.11', '3.12', '3.13']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install build dependencies
+        run: |
+          pip install --upgrade pip setuptools wheel
+        shell: bash
+
+      # Download all CUDA variant extensions for this Python version/OS
+      - name: Download CUDA extensions
+        uses: actions/download-artifact@v4
+        with:
+          pattern: cuda-ext-*-py${{ matrix.python }}-${{ matrix.os }}
+          path: cuda_extensions
+          merge-multiple: true
+
+      - name: List downloaded extensions
+        run: |
+          echo "Downloaded CUDA extensions:"
+          find cuda_extensions -type f
+        shell: bash
+
+      - name: Build fat wheel with all CUDA variants
+        run: |
+          # Create the fussim package directory
+          mkdir -p fussim_pkg/fussim
+
+          # Copy Python source files
+          cp -r fussim/* fussim_pkg/fussim/
+
+          # Copy all CUDA extensions into the package
+          cp cuda_extensions/* fussim_pkg/fussim/
+
+          # List what we're packaging
+          echo "Package contents:"
+          find fussim_pkg -type f
+
+          # Build wheel using setup.py with pre-built extensions
+          cd fussim_pkg
+          cat > setup.py << 'SETUP_EOF'
+          import os
+          import glob
+          from setuptools import setup, Distribution
+
+          class BinaryDistribution(Distribution):
+              def has_ext_modules(self):
+                  return True
+
+          # Find all pre-built extensions
+          ext_files = glob.glob('fussim/_cuda_*.so') + glob.glob('fussim/_cuda_*.pyd')
+          print(f"Found extensions: {ext_files}")
+
+          setup(
+              packages=['fussim'],
+              package_data={'fussim': ['_cuda_*']},
+              include_package_data=True,
+              distclass=BinaryDistribution,
+          )
+          SETUP_EOF
+
+          # Copy pyproject.toml
+          cp ../pyproject.toml .
+
+          python setup.py bdist_wheel --dist-dir=../dist
+        shell: bash
 
       - name: Fix Linux wheel platform tag
         if: runner.os == 'Linux'
@@ -300,10 +404,14 @@ jobs:
           ls -la
         shell: bash
 
-      - name: Test wheel installation
+      - name: Install and test fat wheel
         run: |
+          # Install PyTorch for testing (use latest that supports any CUDA)
+          pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
           pip install dist/*.whl
           python -c "import fussim; print('fussim version:', fussim.__version__)"
+          # Test that extension loading works
+          python -c "from fussim import fused_ssim; print('Extension loaded successfully')"
         shell: bash
 
       - name: Upload PyPI wheel

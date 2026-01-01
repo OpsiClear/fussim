@@ -10,7 +10,7 @@ import warnings
 
 import torch
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __all__ = [
     # Primary API
     "fused_ssim",
@@ -81,6 +81,37 @@ def _cli_check():
 _cuda_extension = None
 _import_error = None
 _compatibility_checked = False
+
+# Supported CUDA variants (must match setup.py)
+_SUPPORTED_CUDA_VARIANTS = ["cu118", "cu121", "cu124", "cu126", "cu128"]
+
+
+def _detect_cuda_variant():
+    """Detect CUDA variant from PyTorch runtime."""
+    try:
+        cuda_version = torch.version.cuda
+        if cuda_version:
+            major, minor = cuda_version.split(".")[:2]
+            # Try exact match first (e.g., cu121 for 12.1)
+            variant = f"cu{major}{minor}"
+            if variant in _SUPPORTED_CUDA_VARIANTS:
+                return variant
+            # Try major + first digit of minor (e.g., cu128 for 12.8)
+            variant = f"cu{major}{minor[0]}"
+            if variant in _SUPPORTED_CUDA_VARIANTS:
+                return variant
+    except Exception:
+        pass
+    return None
+
+
+def _try_import_cuda_variant(variant):
+    """Try to import a specific CUDA variant extension."""
+    try:
+        module = __import__(f"fussim._cuda_{variant}", fromlist=[""])
+        return module
+    except ImportError:
+        return None
 
 
 def _parse_version(version_str):
@@ -191,7 +222,7 @@ def check_compatibility(warn=True):
 
 
 def _ensure_cuda_extension():
-    """Lazy load the CUDA extension with helpful error messages."""
+    """Lazy load the CUDA extension with runtime CUDA detection."""
     global _cuda_extension, _import_error, _compatibility_checked
 
     if _cuda_extension is not None:
@@ -205,64 +236,100 @@ def _ensure_cuda_extension():
         _compatibility_checked = True
         check_compatibility(warn=True)
 
+    # Try to load the CUDA extension with runtime detection
+    # Priority:
+    # 1. Exact match for detected CUDA version
+    # 2. Try all available variants (fat wheel case)
+    # 3. Fallback to legacy fussim_cuda (backwards compatibility)
+
+    detected_variant = _detect_cuda_variant()
+    tried_variants = []
+    last_error = None
+
+    # Try detected variant first
+    if detected_variant:
+        module = _try_import_cuda_variant(detected_variant)
+        if module:
+            _cuda_extension = module
+            return _cuda_extension
+        tried_variants.append(detected_variant)
+
+    # Try all variants (for fat wheel or if detection failed)
+    for variant in _SUPPORTED_CUDA_VARIANTS:
+        if variant in tried_variants:
+            continue
+        module = _try_import_cuda_variant(variant)
+        if module:
+            # Warn if using different CUDA version than detected
+            if detected_variant and variant != detected_variant:
+                warnings.warn(
+                    f"Using CUDA {variant} extension, but PyTorch is built with CUDA {detected_variant}. "
+                    "This may cause issues. Consider installing the matching version.",
+                    RuntimeWarning,
+                    stacklevel=3,
+                )
+            _cuda_extension = module
+            return _cuda_extension
+        tried_variants.append(variant)
+
+    # Try legacy fussim_cuda for backwards compatibility
     try:
         import fussim_cuda
 
         _cuda_extension = fussim_cuda
         return _cuda_extension
     except ImportError as e:
-        error_msg = str(e)
-        info = get_build_info()
+        last_error = e
 
-        # Build helpful context
-        context = []
-        if info["is_prebuilt"]:
-            context.append(
-                f"  Installed wheel: built for PyTorch {info['build_torch_version']} + CUDA {info['build_cuda_version']}"
-            )
-        context.append(f"  Runtime PyTorch: {info['runtime_torch_version']}")
-        context.append(f"  Runtime CUDA: {info['runtime_cuda_version'] or 'not available'}")
-        context_str = "\n".join(context)
+    # Build helpful error message
+    info = get_build_info()
+    context = []
+    if info["is_prebuilt"]:
+        context.append(
+            f"  Installed wheel: built for PyTorch {info['build_torch_version']} + CUDA {info['build_cuda_version']}"
+        )
+    context.append(f"  Runtime PyTorch: {info['runtime_torch_version']}")
+    context.append(f"  Runtime CUDA: {info['runtime_cuda_version'] or 'not available'}")
+    if detected_variant:
+        context.append(f"  Detected variant: {detected_variant}")
+    context.append(f"  Tried variants: {', '.join(tried_variants)}")
+    context_str = "\n".join(context)
 
-        # Provide helpful error messages based on the error type
-        if "No module named" in error_msg:
-            _import_error = ImportError(
-                "fussim_cuda extension not found.\n\n"
-                f"Environment:\n{context_str}\n\n"
-                "Solutions:\n"
-                "  1. Reinstall: pip install --force-reinstall fussim\n"
-                "  2. Or build from source (requires CUDA Toolkit):\n"
-                "     pip install fussim --no-binary fussim\n"
-                f"\nOriginal error: {error_msg}"
-            )
-        elif "undefined symbol" in error_msg or "cannot open shared object" in error_msg:
-            _import_error = ImportError(
-                "fussim_cuda extension failed to load - ABI mismatch detected.\n\n"
-                f"Environment:\n{context_str}\n\n"
-                "This happens when the installed wheel doesn't match your PyTorch/CUDA version.\n\n"
-                "Solutions:\n"
-                "  1. Rebuild from source:\n"
-                "     pip install --force-reinstall --no-cache-dir --no-binary fussim fussim\n"
-                f"\nOriginal error: {error_msg}"
-            )
-        elif "CUDA" in error_msg or "cuda" in error_msg:
-            _import_error = ImportError(
-                "CUDA-related error loading fussim_cuda.\n\n"
-                f"Environment:\n{context_str}\n\n"
-                "Please check:\n"
-                "  1. NVIDIA drivers are installed and up to date\n"
-                "  2. The installed wheel matches your CUDA version\n"
-                f"\nOriginal error: {error_msg}"
-            )
-        else:
-            _import_error = ImportError(
-                f"Failed to import fussim_cuda.\n\n"
-                f"Environment:\n{context_str}\n\n"
-                f"Original error: {error_msg}\n\n"
-                "Try reinstalling: pip install --force-reinstall fussim"
-            )
+    error_msg = str(last_error) if last_error else "No CUDA extension found"
 
-        raise _import_error
+    if "undefined symbol" in error_msg or "cannot open shared object" in error_msg:
+        _import_error = ImportError(
+            "fussim CUDA extension failed to load - ABI mismatch detected.\n\n"
+            f"Environment:\n{context_str}\n\n"
+            "This happens when the installed wheel doesn't match your PyTorch/CUDA version.\n\n"
+            "Solutions:\n"
+            "  1. Install matching CUDA variant: pip install fussim-cuXXX\n"
+            "  2. Or rebuild from source:\n"
+            "     pip install --force-reinstall --no-cache-dir --no-binary fussim fussim\n"
+            f"\nOriginal error: {error_msg}"
+        )
+    elif "CUDA" in error_msg or "cuda" in error_msg:
+        _import_error = ImportError(
+            "CUDA-related error loading fussim extension.\n\n"
+            f"Environment:\n{context_str}\n\n"
+            "Please check:\n"
+            "  1. NVIDIA drivers are installed and up to date\n"
+            "  2. Install matching variant: pip install fussim-cuXXX\n"
+            f"\nOriginal error: {error_msg}"
+        )
+    else:
+        _import_error = ImportError(
+            f"No compatible fussim CUDA extension found.\n\n"
+            f"Environment:\n{context_str}\n\n"
+            "Solutions:\n"
+            "  1. Install with auto-detection: pip install fussim\n"
+            "  2. Or install specific variant: pip install fussim-cu126\n"
+            "  3. Or build from source (requires CUDA Toolkit):\n"
+            "     pip install fussim --no-binary fussim\n"
+            f"\nOriginal error: {error_msg}"
+        )
+
+    raise _import_error
 
 
 def _get_halo(window_size: int) -> int:

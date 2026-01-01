@@ -5,7 +5,7 @@
 
 Fast CUDA SSIM for PyTorch — **`pip install fussim`** with pre-built wheels.
 
-> ~7x faster than pytorch-msssim | FP16/AMP support | Drop-in replacement
+> ~6x faster than pytorch-msssim | FP16/AMP support | Drop-in replacement
 
 Based on [MrNeRF/optimized-fused-ssim](https://github.com/MrNeRF/optimized-fused-ssim).
 
@@ -17,18 +17,32 @@ Based on [MrNeRF/optimized-fused-ssim](https://github.com/MrNeRF/optimized-fused
 pip install fussim
 ```
 
-Works out of the box for **Linux** (PyTorch 2.9 + CUDA 12.8) and **Windows** (PyTorch 2.8 + CUDA 12.8).
+That's it. The package includes **all CUDA versions** and automatically loads the right one for your PyTorch:
+
+| Platform | Python | CUDA |
+|:---------|:------:|:-----|
+| Linux    | 3.10–3.13 | 11.8, 12.4, 12.6, 12.8 |
+| Windows  | 3.10–3.13 | 11.8, 12.4, 12.6, 12.8 |
 
 <details>
-<summary><b>Other PyTorch/CUDA versions</b></summary>
+<summary><b>How it works</b></summary>
 
-Pre-built wheels for PyTorch 2.5–2.9 and CUDA 11.8–12.8:
+The PyPI wheel bundles CUDA extensions for all supported versions (~10MB). At runtime, fussim detects your PyTorch's CUDA version (e.g., `torch.version.cuda = "12.6"`) and loads the matching extension automatically.
+
+No environment variables, no version matching, no extra index URLs needed.
+
+</details>
+
+<details>
+<summary><b>PyTorch version-specific wheels (advanced)</b></summary>
+
+For exact PyTorch ABI matching or smaller downloads, use our wheel index:
 
 ```bash
 pip install fussim --extra-index-url https://opsiclear.github.io/fussim/whl/
 ```
 
-This auto-selects the correct wheel for your installed PyTorch version.
+This provides wheels built against specific PyTorch versions:
 
 | PyTorch | Python | CUDA 11.8 | CUDA 12.1 | CUDA 12.4 | CUDA 12.6 | CUDA 12.8 |
 |:-------:|:------:|:---------:|:---------:|:---------:|:---------:|:---------:|
@@ -40,7 +54,7 @@ This auto-selects the correct wheel for your installed PyTorch version.
 
 *\*Linux only. Windows has a [known PyTorch bug](https://github.com/pytorch/pytorch/issues/141026).*
 
-**[→ Open Installation Configurator](https://opsiclear.github.io/fussim/)**
+**[→ Installation Configurator](https://opsiclear.github.io/fussim/)**
 
 </details>
 

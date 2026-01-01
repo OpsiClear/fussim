@@ -16,6 +16,38 @@ if sys.platform == "win32":
     os.environ["PATH"] = os.pathsep.join(filtered_parts)
 
 
+# =============================================================================
+# Multi-CUDA Package Configuration
+# =============================================================================
+# FUSSIM_CUDA_VARIANT controls which CUDA extension to build:
+#   - "cu118", "cu121", "cu124", "cu126", "cu128": Build specific CUDA version
+#   - "all": Build all CUDA variants (fat wheel)
+#   - Not set: Auto-detect from installed PyTorch/CUDA
+#
+# Extension naming: fussim._cuda_cu{version} (e.g., fussim._cuda_cu126)
+
+SUPPORTED_CUDA_VARIANTS = ["cu118", "cu121", "cu124", "cu126", "cu128"]
+
+
+def get_cuda_variant_from_torch():
+    """Detect CUDA version from PyTorch."""
+    try:
+        import torch
+        cuda_version = torch.version.cuda
+        if cuda_version:
+            major, minor = cuda_version.split(".")[:2]
+            variant = f"cu{major}{minor}"
+            if variant in SUPPORTED_CUDA_VARIANTS:
+                return variant
+            # Try major + first digit of minor (e.g., 12.8 -> cu128)
+            variant = f"cu{major}{minor[0]}"
+            if variant in SUPPORTED_CUDA_VARIANTS:
+                return variant
+    except Exception:
+        pass
+    return None
+
+
 # Check for CUDA availability before importing torch extensions
 def get_cuda_version():
     """Get CUDA version from nvcc or return None if not available."""
@@ -311,21 +343,53 @@ if not _building_sdist:
         )
 
 
+def get_cuda_variants_to_build():
+    """Determine which CUDA variants to build based on environment."""
+    variant_env = os.environ.get("FUSSIM_CUDA_VARIANT", "").strip().lower()
+
+    if variant_env == "all":
+        # Fat wheel: build all variants
+        return SUPPORTED_CUDA_VARIANTS
+    elif variant_env in SUPPORTED_CUDA_VARIANTS:
+        # Specific variant requested
+        return [variant_env]
+    else:
+        # Auto-detect from PyTorch
+        detected = get_cuda_variant_from_torch()
+        if detected:
+            return [detected]
+        # Fallback: try to detect from nvcc and build single variant
+        cuda_ver = get_cuda_version()
+        if cuda_ver:
+            major, minor = cuda_ver.split(".")[:2]
+            variant = f"cu{major}{minor[0]}"
+            if variant in SUPPORTED_CUDA_VARIANTS:
+                return [variant]
+        # Last resort: build cu128 (most recent)
+        return ["cu128"]
+
+
 def get_extensions():
     """Build the list of extension modules."""
     if _building_sdist:
         return []
-    ext_modules = [
-        CUDAExtension(
-            name="fussim_cuda",
-            sources=["csrc/ssim.cu", "csrc/ssim_fp16.cu", "csrc/ext.cpp"],
-            include_dirs=["csrc"],
-            extra_compile_args={
-                "cxx": cxx_flags,
-                "nvcc": nvcc_flags,
-            },
+
+    variants = get_cuda_variants_to_build()
+    ext_modules = []
+
+    for variant in variants:
+        ext_modules.append(
+            CUDAExtension(
+                name=f"fussim._cuda_{variant}",
+                sources=["csrc/ssim.cu", "csrc/ssim_fp16.cu", "csrc/ext.cpp"],
+                include_dirs=["csrc"],
+                extra_compile_args={
+                    "cxx": cxx_flags,
+                    "nvcc": nvcc_flags,
+                },
+            )
         )
-    ]
+
     return ext_modules
 
 
