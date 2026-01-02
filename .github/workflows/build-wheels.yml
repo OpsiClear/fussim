@@ -363,8 +363,8 @@ jobs:
           echo "Package contents:"
           ls -la wheel_build/fussim/
 
-          # Get version and create dist-info
-          VERSION=$(python -c "exec(open('fussim/__init__.py').read()); print(__version__)")
+          # Get version without importing (avoid torch dependency)
+          VERSION=$(sed -n 's/^__version__ = "\(.*\)"/\1/p' fussim/__init__.py)
           PYTHON_TAG="cp${{ matrix.python == '3.10' && '310' || matrix.python == '3.11' && '311' || matrix.python == '3.12' && '312' || '313' }}"
 
           if [ "${{ runner.os }}" == "Windows" ]; then
