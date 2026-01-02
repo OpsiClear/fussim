@@ -378,7 +378,7 @@ jobs:
 
           setup(
               packages=['fussim'],
-              package_data={'fussim': ['_cuda_*']},
+              package_data={'fussim': ['*.pyd', '*.so', 'py.typed']},
               include_package_data=True,
               distclass=BinaryDistribution,
           )
