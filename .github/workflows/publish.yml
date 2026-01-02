@@ -101,12 +101,7 @@ jobs:
       url: https://pypi.org/p/fussim
 
     steps:
-      - name: Download sdist
-        uses: actions/download-artifact@v4
-        with:
-          name: sdist
-          path: dist
-
+      # Skip sdist - users need pre-built CUDA wheels anyway, can't build from source
       - name: Download PyPI wheels
         uses: actions/download-artifact@v4
         with:
@@ -125,8 +120,8 @@ jobs:
             echo "Checking $whl..."
             python -m zipfile -t "$whl"
           done
-          echo "=== Running twine check ==="
-          twine check dist/*
+          echo "=== Running twine check on wheels ==="
+          twine check dist/*.whl
           echo "All validations passed!"
 
       - name: Publish to PyPI
