@@ -377,77 +377,136 @@ jobs:
 
           mkdir -p "wheel_build/fussim-${VERSION}.dist-info"
 
-          # Create METADATA
-          cat > "wheel_build/fussim-${VERSION}.dist-info/METADATA" << EOF
-          Metadata-Version: 2.1
-          Name: fussim
-          Version: ${VERSION}
-          Summary: Optimized CUDA implementation of differentiable SSIM for PyTorch
-          Home-page: https://github.com/OpsiClear/fussim
-          License: MIT
-          Requires-Python: >=3.10
-          Requires-Dist: torch>=2.5
-          EOF
+          # Create METADATA (no indentation - heredoc content must start at column 0)
+          cat > "wheel_build/fussim-${VERSION}.dist-info/METADATA" << 'METADATA_EOF'
+Metadata-Version: 2.1
+Name: fussim
+Summary: Optimized CUDA implementation of differentiable SSIM for PyTorch
+Home-page: https://github.com/OpsiClear/fussim
+License: MIT
+Requires-Python: >=3.10
+Requires-Dist: torch>=2.5
+Description-Content-Type: text/markdown
 
-          # Create WHEEL
-          cat > "wheel_build/fussim-${VERSION}.dist-info/WHEEL" << EOF
-          Wheel-Version: 1.0
-          Generator: custom
-          Root-Is-Purelib: false
-          Tag: ${PYTHON_TAG}-${PYTHON_TAG}-${PLATFORM_TAG}
-          EOF
+# fussim
+
+Fast CUDA SSIM for PyTorch with pre-built wheels.
+METADATA_EOF
+          # Insert version dynamically
+          sed -i "s/^Name: fussim$/Name: fussim\nVersion: ${VERSION}/" "wheel_build/fussim-${VERSION}.dist-info/METADATA"
+
+          # Create WHEEL (no indentation)
+          cat > "wheel_build/fussim-${VERSION}.dist-info/WHEEL" << WHEEL_EOF
+Wheel-Version: 1.0
+Generator: fussim-build
+Root-Is-Purelib: false
+Tag: ${PYTHON_TAG}-${PYTHON_TAG}-${PLATFORM_TAG}
+WHEEL_EOF
 
           # Create top_level.txt
           echo "fussim" > "wheel_build/fussim-${VERSION}.dist-info/top_level.txt"
 
-          # Create entry_points.txt
-          cat > "wheel_build/fussim-${VERSION}.dist-info/entry_points.txt" << EOF
-          [console_scripts]
-          fussim-check = fussim:_cli_check
-          EOF
+          # Create entry_points.txt (no indentation)
+          cat > "wheel_build/fussim-${VERSION}.dist-info/entry_points.txt" << 'ENTRY_EOF'
+[console_scripts]
+fussim-check = fussim:_cli_check
+ENTRY_EOF
 
           # Create RECORD (will be updated by wheel)
           touch "wheel_build/fussim-${VERSION}.dist-info/RECORD"
 
-          # Create wheel
+          # Create wheel with improved ZIP handling
           mkdir -p dist
           cd wheel_build
-          python -c "
-          import hashlib
-          import base64
-          import os
-          import zipfile
+          export VERSION WHEEL_NAME  # Export for Python script
+          python << 'WHEEL_SCRIPT'
+import hashlib
+import base64
+import os
+import sys
+import zipfile
 
-          def hash_file(path):
-              h = hashlib.sha256()
-              with open(path, 'rb') as f:
-                  h.update(f.read())
-              digest = base64.urlsafe_b64encode(h.digest()).rstrip(b'=').decode('ascii')
-              size = os.path.getsize(path)
-              return f'sha256={digest}', size
+def hash_file(path):
+    h = hashlib.sha256()
+    with open(path, 'rb') as f:
+        h.update(f.read())
+    digest = base64.urlsafe_b64encode(h.digest()).rstrip(b'=').decode('ascii')
+    size = os.path.getsize(path)
+    return f'sha256={digest}', size
 
-          wheel_name = '${WHEEL_NAME}'
-          dist_info = 'fussim-${VERSION}.dist-info'
+def hash_bytes(data):
+    h = hashlib.sha256()
+    h.update(data)
+    digest = base64.urlsafe_b64encode(h.digest()).rstrip(b'=').decode('ascii')
+    return f'sha256={digest}', len(data)
 
-          records = []
-          with zipfile.ZipFile(f'../dist/{wheel_name}', 'w', zipfile.ZIP_DEFLATED) as whl:
-              for root, dirs, files in os.walk('.'):
-                  for f in files:
-                      path = os.path.join(root, f)
-                      arcname = path[2:]  # Remove ./
-                      if arcname == f'{dist_info}/RECORD':
-                          continue
-                      whl.write(path, arcname)
-                      hash_val, size = hash_file(path)
-                      records.append(f'{arcname},{hash_val},{size}')
+# Get wheel name from environment
+wheel_name = os.environ.get('WHEEL_NAME', '')
+version = os.environ.get('VERSION', '')
+dist_info = f'fussim-{version}.dist-info'
 
-              # Add RECORD
-              records.append(f'{dist_info}/RECORD,,')
-              record_content = '\n'.join(records)
-              whl.writestr(f'{dist_info}/RECORD', record_content)
+if not wheel_name or not version:
+    print("ERROR: WHEEL_NAME and VERSION environment variables must be set")
+    sys.exit(1)
 
-          print(f'Created {wheel_name}')
-          "
+records = []
+wheel_path = f'../dist/{wheel_name}'
+
+# Use ZIP_DEFLATED with explicit settings for cross-platform compatibility
+with zipfile.ZipFile(wheel_path, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=6) as whl:
+    # Collect all files first
+    all_files = []
+    for root, dirs, files in os.walk('.'):
+        for f in sorted(files):  # Sort for deterministic order
+            path = os.path.join(root, f)
+            arcname = path[2:].replace('\\', '/')  # Normalize path separators
+            if arcname != f'{dist_info}/RECORD':
+                all_files.append((path, arcname))
+
+    # Write files
+    for path, arcname in all_files:
+        # Read file content explicitly (avoids file handle issues on Windows)
+        with open(path, 'rb') as f:
+            content = f.read()
+
+        # Create ZipInfo with explicit settings
+        info = zipfile.ZipInfo(arcname)
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.external_attr = 0o644 << 16  # Regular file with rw-r--r--
+
+        # Write content
+        whl.writestr(info, content)
+
+        # Calculate hash
+        hash_val, size = hash_bytes(content)
+        records.append(f'{arcname},{hash_val},{size}')
+
+    # Add RECORD last
+    records.append(f'{dist_info}/RECORD,,')
+    record_content = '\n'.join(records)
+
+    record_info = zipfile.ZipInfo(f'{dist_info}/RECORD')
+    record_info.compress_type = zipfile.ZIP_STORED  # RECORD should be uncompressed
+    record_info.external_attr = 0o644 << 16
+    whl.writestr(record_info, record_content)
+
+print(f'Created {wheel_name}')
+
+# Validate the wheel
+print('Validating wheel...')
+try:
+    with zipfile.ZipFile(wheel_path, 'r') as whl:
+        result = whl.testzip()
+        if result is not None:
+            print(f'ERROR: Wheel validation failed for: {result}')
+            sys.exit(1)
+        print(f'Wheel contains {len(whl.namelist())} files')
+except Exception as e:
+    print(f'ERROR: Wheel validation failed: {e}')
+    sys.exit(1)
+
+print('Wheel validation passed!')
+WHEEL_SCRIPT
           cd ..
 
           echo "Built wheel:"

@@ -117,7 +117,20 @@ jobs:
       - name: List packages for PyPI
         run: ls -la dist/
 
+      - name: Validate all wheels before upload
+        run: |
+          pip install twine
+          echo "=== Validating wheel integrity ==="
+          for whl in dist/*.whl; do
+            echo "Checking $whl..."
+            python -m zipfile -t "$whl"
+          done
+          echo "=== Running twine check ==="
+          twine check dist/*
+          echo "All validations passed!"
+
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: dist/
+          verbose: true
