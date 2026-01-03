@@ -219,12 +219,7 @@ jobs:
         os: [ubuntu-22.04, windows-2022]
         python: ['3.10', '3.11', '3.12', '3.13']
         cuda: ['cu118', 'cu124', 'cu126', 'cu128']
-        exclude:
-          # Python 3.13 + cu118/cu124: PyTorch 2.5.1 doesn't support Python 3.13
-          - python: '3.13'
-            cuda: 'cu118'
-          - python: '3.13'
-            cuda: 'cu124'
+        # No Python 3.13 exclusions needed - all CUDA variants now use PyTorch 2.6.0+
 
     steps:
       - name: Checkout repository
@@ -259,14 +254,15 @@ jobs:
       # Install PyTorch version that matches CUDA
       - name: Install PyTorch for CUDA ${{ matrix.cuda }}
         run: |
-          # Pick oldest PyTorch version for each CUDA variant (ensures ABI compatibility)
-          # Extensions built with older PyTorch work with newer versions (forward compatible)
+          # Use LATEST PyTorch for each CUDA variant
+          # PyTorch ABI is NOT forward compatible - extensions must match runtime version
+          # Fat wheel targets latest PyTorch; older versions use torch-specific wheels
           # Source: https://pytorch.org/get-started/previous-versions/
           case "${{ matrix.cuda }}" in
-            cu118) TORCH_VER="2.5.1" ;;  # 2.5.x supports cu118, cu121, cu124
-            cu124) TORCH_VER="2.5.1" ;;  # 2.5.x supports cu118, cu121, cu124
-            cu126) TORCH_VER="2.6.0" ;;  # 2.6.x supports cu118, cu124, cu126
-            cu128) TORCH_VER="2.7.0" ;;  # 2.7.x supports cu118, cu126, cu128
+            cu118) TORCH_VER="2.7.1" ;;  # Latest with cu118 (2.7.x)
+            cu124) TORCH_VER="2.6.0" ;;  # Latest with cu124 (2.6.x only)
+            cu126) TORCH_VER="2.8.0" ;;  # Latest stable with cu126
+            cu128) TORCH_VER="2.8.0" ;;  # Latest stable with cu128
           esac
           pip install torch==${TORCH_VER} --index-url https://download.pytorch.org/whl/${{ matrix.cuda }}
           python -c "import torch; print('PyTorch:', torch.__version__)"
