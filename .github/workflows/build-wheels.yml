@@ -253,12 +253,13 @@ jobs:
       # Install PyTorch version that matches CUDA
       - name: Install PyTorch for CUDA ${{ matrix.cuda }}
         run: |
-          # Pick PyTorch version based on CUDA
+          # Pick oldest PyTorch version for each CUDA variant (ensures ABI compatibility)
+          # Extensions built with older PyTorch work with newer versions (forward compatible)
           case "${{ matrix.cuda }}" in
-            cu118) TORCH_VER="2.5.1" ;;
-            cu124) TORCH_VER="2.6.0" ;;
-            cu126) TORCH_VER="2.8.0" ;;
-            cu128) TORCH_VER="2.8.0" ;;
+            cu118) TORCH_VER="2.5.1" ;;  # First PyTorch with cu118
+            cu124) TORCH_VER="2.5.1" ;;  # First PyTorch with cu124
+            cu126) TORCH_VER="2.6.0" ;;  # First PyTorch with cu126
+            cu128) TORCH_VER="2.8.0" ;;  # First PyTorch with cu128
           esac
           pip install torch==${TORCH_VER} --index-url https://download.pytorch.org/whl/${{ matrix.cuda }}
           python -c "import torch; print('PyTorch:', torch.__version__)"
