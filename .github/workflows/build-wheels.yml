@@ -220,9 +220,11 @@ jobs:
         python: ['3.10', '3.11', '3.12', '3.13']
         cuda: ['cu118', 'cu124', 'cu126', 'cu128']
         exclude:
-          # Python 3.13 + CUDA 11.8: old toolchains don't support Python 3.13
+          # Python 3.13 + cu118/cu124: PyTorch 2.5.1 doesn't support Python 3.13
           - python: '3.13'
             cuda: 'cu118'
+          - python: '3.13'
+            cuda: 'cu124'
 
     steps:
       - name: Checkout repository
