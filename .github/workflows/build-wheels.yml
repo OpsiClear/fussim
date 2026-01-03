@@ -49,31 +49,25 @@ jobs:
         os: [ubuntu-22.04, windows-2022]
         python: ['3.10', '3.11', '3.12', '3.13']
         torch: ['2.5.1', '2.6.0', '2.7.1', '2.8.0', '2.9.1']
-        cuda: ['cu118', 'cu121', 'cu124', 'cu126', 'cu128', 'cu130']
+        cuda: ['cu118', 'cu121', 'cu124', 'cu126', 'cu128']
         exclude:
           # PyTorch 2.5.x: supports cu118, cu121, cu124
           - torch: '2.5.1'
             cuda: 'cu126'
           - torch: '2.5.1'
             cuda: 'cu128'
-          - torch: '2.5.1'
-            cuda: 'cu130'
 
           # PyTorch 2.6.0: supports cu118, cu124, cu126 (dropped cu121)
           - torch: '2.6.0'
             cuda: 'cu121'
           - torch: '2.6.0'
             cuda: 'cu128'
-          - torch: '2.6.0'
-            cuda: 'cu130'
 
           # PyTorch 2.7.x: supports cu118, cu126, cu128 (dropped cu121, cu124)
           - torch: '2.7.1'
             cuda: 'cu121'
           - torch: '2.7.1'
             cuda: 'cu124'
-          - torch: '2.7.1'
-            cuda: 'cu130'
 
           # PyTorch 2.8.0: supports cu126, cu128 (dropped cu118)
           - torch: '2.8.0'
@@ -82,10 +76,9 @@ jobs:
             cuda: 'cu121'
           - torch: '2.8.0'
             cuda: 'cu124'
-          - torch: '2.8.0'
-            cuda: 'cu130'
 
-          # PyTorch 2.9.1: supports cu126, cu128, cu130 (dropped cu118)
+          # PyTorch 2.9.1: supports cu126, cu128 (dropped cu118)
+          # Note: cu130 excluded until CUDA 13.0 installers are available
           - torch: '2.9.1'
             cuda: 'cu118'
           - torch: '2.9.1'
@@ -226,15 +219,13 @@ jobs:
       matrix:
         os: [ubuntu-22.04, windows-2022]
         python: ['3.10', '3.11', '3.12', '3.13']
-        cuda: ['cu118', 'cu124', 'cu126', 'cu128', 'cu130']
+        cuda: ['cu118', 'cu124', 'cu126', 'cu128']
         exclude:
-          # Python 3.10 dropped in PyTorch 2.9.x (cu126, cu128, cu130)
+          # Python 3.10 dropped in PyTorch 2.9.x (cu126, cu128)
           - python: '3.10'
             cuda: 'cu126'
           - python: '3.10'
             cuda: 'cu128'
-          - python: '3.10'
-            cuda: 'cu130'
 
     steps:
       - name: Checkout repository
@@ -278,7 +269,6 @@ jobs:
             cu124) TORCH_VER="2.6.0" ;;  # Latest with cu124 (2.6.x only)
             cu126) TORCH_VER="2.9.1" ;;  # Latest stable with cu126
             cu128) TORCH_VER="2.9.1" ;;  # Latest stable with cu128
-            cu130) TORCH_VER="2.9.1" ;;  # Latest stable with cu130
           esac
           pip install torch==${TORCH_VER} --index-url https://download.pytorch.org/whl/${{ matrix.cuda }}
           python -c "import torch; print('PyTorch:', torch.__version__)"
