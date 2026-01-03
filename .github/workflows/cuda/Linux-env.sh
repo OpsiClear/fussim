@@ -3,6 +3,13 @@
 # Sets CUDA_HOME, PATH, LD_LIBRARY_PATH, and TORCH_CUDA_ARCH_LIST
 
 case ${1} in
+  cu130)
+    export CUDA_HOME=/usr/local/cuda-13.0
+    export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
+    export PATH=${CUDA_HOME}/bin:${PATH}
+    # CUDA 13.0 supports Blackwell datacenter (sm_100) and consumer (sm_120)
+    export TORCH_CUDA_ARCH_LIST="7.5;8.0;8.6;8.9;9.0;10.0;12.0"
+    ;;
   cu128)
     export CUDA_HOME=/usr/local/cuda-12.8
     export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}

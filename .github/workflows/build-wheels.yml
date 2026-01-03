@@ -48,26 +48,32 @@ jobs:
       matrix:
         os: [ubuntu-22.04, windows-2022]
         python: ['3.10', '3.11', '3.12', '3.13']
-        torch: ['2.5.1', '2.6.0', '2.7.1', '2.8.0', '2.9.0']
-        cuda: ['cu118', 'cu121', 'cu124', 'cu126', 'cu128']
+        torch: ['2.5.1', '2.6.0', '2.7.1', '2.8.0', '2.9.1']
+        cuda: ['cu118', 'cu121', 'cu124', 'cu126', 'cu128', 'cu130']
         exclude:
           # PyTorch 2.5.x: supports cu118, cu121, cu124
           - torch: '2.5.1'
             cuda: 'cu126'
           - torch: '2.5.1'
             cuda: 'cu128'
+          - torch: '2.5.1'
+            cuda: 'cu130'
 
           # PyTorch 2.6.0: supports cu118, cu124, cu126 (dropped cu121)
           - torch: '2.6.0'
             cuda: 'cu121'
           - torch: '2.6.0'
             cuda: 'cu128'
+          - torch: '2.6.0'
+            cuda: 'cu130'
 
           # PyTorch 2.7.x: supports cu118, cu126, cu128 (dropped cu121, cu124)
           - torch: '2.7.1'
             cuda: 'cu121'
           - torch: '2.7.1'
             cuda: 'cu124'
+          - torch: '2.7.1'
+            cuda: 'cu130'
 
           # PyTorch 2.8.0: supports cu126, cu128 (dropped cu118)
           - torch: '2.8.0'
@@ -76,18 +82,20 @@ jobs:
             cuda: 'cu121'
           - torch: '2.8.0'
             cuda: 'cu124'
+          - torch: '2.8.0'
+            cuda: 'cu130'
 
-          # PyTorch 2.9.0: supports cu126, cu128 (dropped cu118)
-          - torch: '2.9.0'
+          # PyTorch 2.9.1: supports cu126, cu128, cu130 (dropped cu118)
+          - torch: '2.9.1'
             cuda: 'cu118'
-          - torch: '2.9.0'
+          - torch: '2.9.1'
             cuda: 'cu121'
-          - torch: '2.9.0'
+          - torch: '2.9.1'
             cuda: 'cu124'
 
-          # Python 3.10 + PyTorch 2.9.0: dropped support
+          # Python 3.10 + PyTorch 2.9.1: dropped support
           - python: '3.10'
-            torch: '2.9.0'
+            torch: '2.9.1'
 
           # Python 3.12 compatibility
           - python: '3.12'
@@ -102,9 +110,9 @@ jobs:
           - python: '3.13'
             torch: '2.7.1'
 
-          # PyTorch 2.9.0 Windows: has 'std': ambiguous symbol bug in compiled_autograd.h
+          # PyTorch 2.9.1 Windows: has 'std': ambiguous symbol bug in compiled_autograd.h
           - os: 'windows-2022'
-            torch: '2.9.0'
+            torch: '2.9.1'
 
     steps:
       - name: Checkout repository
@@ -218,8 +226,15 @@ jobs:
       matrix:
         os: [ubuntu-22.04, windows-2022]
         python: ['3.10', '3.11', '3.12', '3.13']
-        cuda: ['cu118', 'cu124', 'cu126', 'cu128']
-        # No Python 3.13 exclusions needed - all CUDA variants now use PyTorch 2.6.0+
+        cuda: ['cu118', 'cu124', 'cu126', 'cu128', 'cu130']
+        exclude:
+          # Python 3.10 dropped in PyTorch 2.9.x (cu126, cu128, cu130)
+          - python: '3.10'
+            cuda: 'cu126'
+          - python: '3.10'
+            cuda: 'cu128'
+          - python: '3.10'
+            cuda: 'cu130'
 
     steps:
       - name: Checkout repository
@@ -261,8 +276,9 @@ jobs:
           case "${{ matrix.cuda }}" in
             cu118) TORCH_VER="2.7.1" ;;  # Latest with cu118 (2.7.x)
             cu124) TORCH_VER="2.6.0" ;;  # Latest with cu124 (2.6.x only)
-            cu126) TORCH_VER="2.8.0" ;;  # Latest stable with cu126
-            cu128) TORCH_VER="2.8.0" ;;  # Latest stable with cu128
+            cu126) TORCH_VER="2.9.1" ;;  # Latest stable with cu126
+            cu128) TORCH_VER="2.9.1" ;;  # Latest stable with cu128
+            cu130) TORCH_VER="2.9.1" ;;  # Latest stable with cu130
           esac
           pip install torch==${TORCH_VER} --index-url https://download.pytorch.org/whl/${{ matrix.cuda }}
           python -c "import torch; print('PyTorch:', torch.__version__)"
@@ -488,7 +504,7 @@ jobs:
       - name: Install and test fat wheel
         run: |
           # Install PyTorch for testing (use latest that supports any CUDA)
-          pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+          pip install torch==2.9.1 --index-url https://download.pytorch.org/whl/cu128
           pip install dist/*.whl
           python -c "import fussim; print('fussim version:', fussim.__version__)"
           # Test that extension loading works

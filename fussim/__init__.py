@@ -10,7 +10,7 @@ import warnings
 
 import torch
 
-__version__ = "0.3.11"
+__version__ = "0.3.12"
 __all__ = [
     # Primary API
     "fused_ssim",
@@ -83,7 +83,7 @@ _import_error = None
 _compatibility_checked = False
 
 # Supported CUDA variants (must match setup.py)
-_SUPPORTED_CUDA_VARIANTS = ["cu118", "cu121", "cu124", "cu126", "cu128"]
+_SUPPORTED_CUDA_VARIANTS = ["cu118", "cu121", "cu124", "cu126", "cu128", "cu130"]
 
 
 def _detect_cuda_variant():
