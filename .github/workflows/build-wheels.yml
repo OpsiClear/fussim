@@ -263,12 +263,25 @@ jobs:
           # Use LATEST PyTorch for each CUDA variant
           # PyTorch ABI is NOT forward compatible - extensions must match runtime version
           # Fat wheel targets latest PyTorch; older versions use torch-specific wheels
+          # Note: PyTorch 2.9.x has Windows build bug, use 2.8.0 for Windows cu126/cu128
           # Source: https://pytorch.org/get-started/previous-versions/
           case "${{ matrix.cuda }}" in
             cu118) TORCH_VER="2.7.1" ;;  # Latest with cu118 (2.7.x)
             cu124) TORCH_VER="2.6.0" ;;  # Latest with cu124 (2.6.x only)
-            cu126) TORCH_VER="2.9.1" ;;  # Latest stable with cu126
-            cu128) TORCH_VER="2.9.1" ;;  # Latest stable with cu128
+            cu126)
+              if [[ "${{ runner.os }}" == "Windows" ]]; then
+                TORCH_VER="2.8.0"  # PyTorch 2.9.x has Windows build bug
+              else
+                TORCH_VER="2.9.1"  # Latest stable with cu126
+              fi
+              ;;
+            cu128)
+              if [[ "${{ runner.os }}" == "Windows" ]]; then
+                TORCH_VER="2.8.0"  # PyTorch 2.9.x has Windows build bug
+              else
+                TORCH_VER="2.9.1"  # Latest stable with cu128
+              fi
+              ;;
           esac
           pip install torch==${TORCH_VER} --index-url https://download.pytorch.org/whl/${{ matrix.cuda }}
           python -c "import torch; print('PyTorch:', torch.__version__)"

@@ -10,7 +10,7 @@ import warnings
 
 import torch
 
-__version__ = "0.3.13"
+__version__ = "0.3.14"
 __all__ = [
     # Primary API
     "fused_ssim",
