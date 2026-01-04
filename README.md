@@ -11,6 +11,8 @@
 pip install fussim
 ```
 
+**Requirements:** Python 3.10+, PyTorch 2.6+, NVIDIA GPU (Turing or newer)
+
 |  | fussim | pytorch-msssim | fused-ssim |
 |:-|:------:|:--------------:|:----------:|
 | `pip install` | Yes | Yes | Needs compiler |
@@ -68,12 +70,30 @@ pip install fussim
 
 This installs a **single wheel containing all CUDA variants** (~10MB). At runtime, fussim automatically detects your PyTorch's CUDA version and loads the correct extension.
 
-| Platform | Python | CUDA (auto-detected) |
-|:---------|:------:|:---------------------|
-| Linux    | 3.10-3.13 | 11.8, 12.4, 12.6, 12.8 |
-| Windows  | 3.10-3.13 | 11.8, 12.4, 12.6, 12.8 |
+| Platform | Python | PyTorch | CUDA (auto-detected) |
+|:---------|:------:|:-------:|:---------------------|
+| Linux    | 3.10-3.13 | 2.6 - 2.9 | 11.8, 12.4, 12.6, 12.8 |
+| Windows  | 3.10-3.13 | 2.6 - 2.9 | 11.8, 12.4, 12.6, 12.8 |
+
+> **PyTorch 2.5 or older?** The fat wheel requires PyTorch 2.6+. For older versions, use [version-specific wheels](#alternative-version-specific-wheels) or [build from source](#build-from-source).
 
 **No manual version selection needed.** Just install and use.
+
+<details>
+<summary><b>Fat wheel compatibility matrix</b></summary>
+
+The fat wheel contains extensions built with these PyTorch versions:
+
+| CUDA | Built with PyTorch | Compatible with |
+|:-----|:-------------------|:----------------|
+| 11.8 | 2.7.1 | 2.7+ |
+| 12.4 | 2.6.0 | 2.6+ |
+| 12.6 | 2.8.0 (Win) / 2.9.1 (Linux) | 2.8+ (or 2.6+ via cu124 fallback) |
+| 12.8 | 2.8.0 (Win) / 2.9.1 (Linux) | 2.8+ |
+
+PyTorch maintains forward ABI compatibility, so extensions built with older versions work with newer PyTorch. If your exact CUDA version isn't compatible, fussim automatically falls back to a compatible variant.
+
+</details>
 
 ---
 
@@ -233,6 +253,43 @@ RTX 4090, batch 5x5x1080x1920, 100 iterations:
 ## Troubleshooting
 
 <details>
+<summary><b>ImportError: No compatible fussim CUDA extension found</b></summary>
+
+This usually means your PyTorch version is too old for the fat wheel.
+
+**Check your versions:**
+```python
+import torch
+print(f"PyTorch: {torch.__version__}, CUDA: {torch.version.cuda}")
+```
+
+**Solutions:**
+
+| PyTorch Version | Solution |
+|:----------------|:---------|
+| 2.6 - 2.9 | Should work. Run `pip install --upgrade fussim` |
+| 2.5 or older | Use [version-specific wheel](#alternative-version-specific-wheels) or upgrade PyTorch |
+
+</details>
+
+<details>
+<summary><b>DLL load failed / undefined symbol</b></summary>
+
+This is a PyTorch ABI mismatch. The extension was built with a different PyTorch version.
+
+**Fix:** Install a version-specific wheel that matches your exact PyTorch version:
+
+```bash
+# Check your version first
+python -c "import torch; print(f'PyTorch: {torch.__version__}, CUDA: {torch.version.cuda}')"
+
+# Install matching wheel (example for PyTorch 2.7.1 + CUDA 11.8)
+pip install "fussim==0.3.14+pt27cu118" --extra-index-url https://opsiclear.github.io/fussim/whl/
+```
+
+</details>
+
+<details>
 <summary><b>CUDA extension not loading</b></summary>
 
 Check your installation:
@@ -241,12 +298,13 @@ Check your installation:
 python -c "import fussim; print(fussim.get_build_info())"
 ```
 
-Or use the CLI check:
+Or use the compatibility check:
 
 ```python
 from fussim import check_compatibility
 compatible, issues = check_compatibility()
-print(issues)
+print(f"Compatible: {compatible}")
+print(f"Issues: {issues}")
 ```
 
 </details>
@@ -254,7 +312,7 @@ print(issues)
 <details>
 <summary><b>Wrong CUDA version detected</b></summary>
 
-The fat wheel auto-detects from `torch.version.cuda`. If fallback occurs:
+The fat wheel auto-detects from `torch.version.cuda`. If a fallback warning appears:
 
 ```python
 import torch
@@ -268,7 +326,9 @@ Install a version-specific wheel for exact matching.
 <details>
 <summary><b>Windows build errors with PyTorch 2.9.x</b></summary>
 
-PyTorch 2.9.x has a [Windows compilation bug](https://github.com/pytorch/pytorch/issues/141026). Use PyTorch 2.8.x or Linux.
+PyTorch 2.9.x has a [Windows compilation bug](https://github.com/pytorch/pytorch/issues/141026) that prevents building extensions from source.
+
+**Note:** Pre-built wheels work fine on Windows with PyTorch 2.9.x. This only affects building from source.
 
 </details>
 
@@ -278,11 +338,12 @@ PyTorch 2.9.x has a [Windows compilation bug](https://github.com/pytorch/pytorch
 
 | Constraint | Reason |
 |:-----------|:-------|
+| PyTorch 2.6+ (fat wheel) | ABI compatibility; use version-specific wheels for 2.5 |
+| NVIDIA GPU required | No CPU fallback |
 | `window_size`: 7, 9, or 11 only | CUDA kernel templates |
 | `win_sigma`: 1.5 (fixed) | Hardcoded in optimized kernel |
 | Custom `win` not supported | Uses built-in Gaussian |
 | No MS-SSIM | Single-scale SSIM only |
-| CUDA required | No CPU fallback |
 
 ---
 
