@@ -10,11 +10,8 @@
 #include <iostream>
 #include <stdexcept>
 
-// Windows SDK (rpcndr.h) defines 'small' as 'char', which conflicts with
-// PyTorch headers that use 'small' as a parameter name.
-#ifdef small
-#undef small
-#endif
+// Undef the Windows 'small' macro (rpcndr.h) before any torch header — see win_compat.h.
+#include "win_compat.h"
 
 #include <torch/types.h>
 #include <ATen/ATen.h>
