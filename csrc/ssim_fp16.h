@@ -1,8 +1,7 @@
 #pragma once
 
-#ifdef small
-#undef small
-#endif
+// Self-protect: undef the Windows 'small' macro before pulling torch. See win_compat.h.
+#include "win_compat.h"
 
 #include <torch/types.h>
 #include <tuple>
